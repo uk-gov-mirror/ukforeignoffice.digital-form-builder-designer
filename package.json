@@ -1,0 +1,41 @@
+{
+  "name": "digital-form-builder-designer",
+  "version": "0.0.1",
+  "description": "A hapi plugin providing a visual designer for digital form builder based applications",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "build:js": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DEFRA/digital-form-builder-designer"
+  },
+  "author": "defra",
+  "license": "ISC",
+  "dependencies": {
+    "joi": "13.6.0"
+  },
+  "devDependencies": {
+    "babel": "6.23.0",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.6",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-react-jsx": "6.24.1",
+    "babel-preset-env": "1.7.0",
+    "dagre": "0.8.2",
+    "digital-form-builder-engine": "0.0.1",
+    "rollup": "0.64.1",
+    "rollup-plugin-babel": "3.0.7",
+    "rollup-plugin-commonjs": "9.1.5",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "standard": "11.0.1"
+  },
+  "standard": {
+    "ignore": [
+      "dist/"
+    ],
+    "parser": "babel-eslint"
+  }
+}

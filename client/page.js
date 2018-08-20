@@ -12,14 +12,14 @@ const SortableContainer = SortableHOC.SortableContainer
 const arrayMove = SortableHOC.arrayMove
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
-  <div class='component-item'>
+  <div className='component-item'>
     <Component key={index} page={page} component={component} data={data} />
   </div>
 )
 
 const SortableList = SortableContainer(({ page, data }) => {
   return (
-    <div class='component-list'>
+    <div className='component-list'>
       {page.components.map((component, index) => (
         <SortableItem key={index} index={index} page={page} component={component} data={data} />
       ))}

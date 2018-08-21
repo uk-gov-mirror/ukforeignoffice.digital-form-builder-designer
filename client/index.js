@@ -53,7 +53,7 @@ function getLayout (data, el) {
   pos.height = output.height + 'px'
   g.nodes().forEach((v, index) => {
     const node = g.node(v)
-    const pt = {}
+    const pt = { node }
     pt.top = (node.y - node.height / 2) + 'px'
     pt.left = (node.x - node.width / 2) + 'px'
     pos.nodes.push(pt)
@@ -116,6 +116,51 @@ class Lines extends React.Component {
   }
 }
 
+class Minimap extends React.Component {
+  state = {}
+
+  onClickPage = (e) => {
+
+  }
+
+  render () {
+    const { layout, data, scale = 0.05 } = this.props
+
+    return (
+      <div className='minimap'>
+        <svg height={parseFloat(layout.height) * scale} width={parseFloat(layout.width) * scale}>
+          {
+            layout.edges.map(edge => {
+              const points = edge.points.map(points => `${points.x * scale},${points.y * scale}`).join(' ')
+              return (
+                <g key={points}>
+                  <polyline points={points} />
+                </g>
+              )
+            })
+          }
+          {
+            layout.nodes.map((node, index) => {
+              return (
+                <g key={node + index}>
+                  <a xlinkHref={`#${node.node.label}`}>
+                    <rect x={parseFloat(node.left) * scale}
+                      y={parseFloat(node.top) * scale}
+                      width={node.node.width * scale}
+                      height={node.node.height * scale}
+                      title={node.node.label}
+                      onClick={this.onClickPage} />
+                  </a>
+                </g>
+              )
+            })
+          }
+        </svg>
+      </div>
+    )
+  }
+}
+
 class Visualisation extends React.Component {
   state = {}
 
@@ -153,6 +198,7 @@ class Visualisation extends React.Component {
           layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
         {this.state.layout && <Lines layout={this.state.layout} data={data} />}
+        {this.state.layout && <Minimap layout={this.state.layout} data={data} />}
       </div>
     )
   }
@@ -165,7 +211,7 @@ class Menu extends React.Component {
     const { data } = this.props
 
     return (
-      <div>
+      <div className='menu'>
         <button className='govuk-button govuk-!-font-size-14'
           onClick={() => this.setState({ showAddPage: true })}>Add Page</button>{' '}
 

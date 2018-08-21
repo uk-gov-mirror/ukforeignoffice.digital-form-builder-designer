@@ -59,7 +59,7 @@ class Page extends React.Component {
     const section = page.section && sections.find(section => section.name === page.section)
 
     return (
-      <div className='page xtooltip' style={this.props.layout}>
+      <div id={page.path} className='page xtooltip' title={page.path} style={this.props.layout}>
         <div className='handle' onClick={(e) => this.showEditor(e, true)} />
         <div className='govuk-!-padding-top-2 govuk-!-padding-left-2 govuk-!-padding-right-2'>
 

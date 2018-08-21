@@ -8,6 +8,18 @@
 
 // Visualisation
 #app {
+  @include govuk-media-query($from: tablet) {
+    .menu {
+      padding: 5px;
+      position: fixed;
+      z-index: 999;
+      background-color: #fff;
+      button {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   .visualisation {
     position: relative;
   
@@ -45,6 +57,21 @@
           display: inline;
         }
       }
+    }
+  }
+
+  .minimap {
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 999;
+    background: lightgray;
+    padding: 5px;
+    polyline {
+      stroke-width: 1
+    }
+    rect:hover {
+      fill: #ffbf47;
     }
   }
 }

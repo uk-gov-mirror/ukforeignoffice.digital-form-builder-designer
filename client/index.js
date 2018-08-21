@@ -16,8 +16,9 @@ function getLayout (data, el) {
   // Set an object for the graph label
   g.setGraph({
     rankdir: 'LR',
-    marginx: 30,
-    marginy: 30
+    marginx: 50,
+    marginy: 50,
+    ranksep: 160
   })
 
   // Default to assigning a new object as a label for each new edge.

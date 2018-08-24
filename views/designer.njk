@@ -21,11 +21,14 @@
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
   </head>
   <body>
-    {# <div class="show flyout-menu"></div> #}
+    <script>
+      window.DFBD = {
+        playgroundMode: {{ playgroundMode }}
+      }
+    </script>
     <div id="root"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-sortable-hoc/0.8.3/react-sortable-hoc.min.js"></script>
     <script src="https://dagrejs.github.io/project/dagre/latest/dagre.js"></script>
     <script src="{{ assetPath }}/designer.js"></script>

@@ -17,7 +17,7 @@ function getLayout (data, el) {
   g.setGraph({
     rankdir: 'LR',
     marginx: 50,
-    marginy: 50,
+    marginy: 150,
     ranksep: 160
   })
 
@@ -207,8 +207,24 @@ class Visualisation extends React.Component {
 class Menu extends React.Component {
   state = {}
 
-  render () {
+  onClickUpload = (e) => {
+    e.preventDefault()
+    document.getElementById('upload').click()
+  }
+
+  onFileUpload = (e) => {
     const { data } = this.props
+    const file = e.target.files.item(0)
+    const reader = new FileReader()
+    reader.readAsText(file, 'UTF-8')
+    reader.onload = function (evt) {
+      const content = JSON.parse(evt.target.result)
+      data.save(content)
+    }
+  }
+
+  render () {
+    const { data, playgroundMode } = this.props
 
     return (
       <div className='menu'>
@@ -228,7 +244,15 @@ class Menu extends React.Component {
           onClick={() => this.setState({ showDataModel: true })}>View Data Model</button>{' '}
 
         <button className='govuk-button govuk-!-font-size-14'
-          onClick={() => this.setState({ showJSONData: true })}>View JSON</button>{' '}
+          onClick={() => this.setState({ showJSONData: true })}>View JSON</button>
+
+        {playgroundMode && (
+          <div className="govuk-!-margin-top-4">
+            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download href='/api/data?format=true'>Download JSON</a>{' '}
+            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
+            <input type='file' id='upload' hidden onChange={this.onFileUpload} />
+          </div>
+        )}
 
         <Flyout title='Add Page' show={this.state.showAddPage}
           onHide={() => this.setState({ showAddPage: false })}>
@@ -297,7 +321,7 @@ class App extends React.Component {
     if (this.state.loaded) {
       return (
         <div id='app'>
-          <Menu data={this.state.data} />
+          <Menu data={this.state.data} playgroundMode={window.DFBD.playgroundMode} />
           <Visualisation data={this.state.data} />
         </div>
       )

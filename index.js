@@ -11,15 +11,22 @@ module.exports = {
     version: pkg.version,
     dependencies: 'vision',
     register: (server, options) => {
-      const { path } = options
-      let data = require(path)
+      const { path, playgroundModel } = options
+
+      const playgroundMode = !path
+      let data = !playgroundMode && require(path)
+
+      function getData (request) {
+        return !playgroundMode ? data
+          : request.yar.get('model') || playgroundModel
+      }
 
       // DESIGNER
       server.route({
         method: 'get',
         path: '/designer',
-        handler: async (request, h) => {
-          return h.view('designer', data)
+        handler: (request, h) => {
+          return h.view('designer', { playgroundMode })
         }
       })
 
@@ -27,7 +34,7 @@ module.exports = {
       server.route({
         method: 'get',
         path: '/split',
-        handler: async (request, h) => {
+        handler: (request, h) => {
           return h.view('split')
         }
       })
@@ -38,7 +45,17 @@ module.exports = {
         path: '/api/data',
         options: {
           handler: (request, h) => {
-            return data
+            if (request.query.format) {
+              const json = JSON.stringify(getData(request), null, 2)
+              return h.response(json).type('application/json')
+            }
+
+            return getData(request)
+          },
+          validate: {
+            query: {
+              format: joi.boolean()
+            }
           }
         }
       })
@@ -56,9 +73,12 @@ module.exports = {
                 throw new Error('Schema validation failed')
               }
 
-              await writeFile(path, JSON.stringify(result.value, null, 2))
-
-              data = result.value
+              if (!playgroundMode) {
+                await writeFile(path, JSON.stringify(result.value, null, 2))
+                data = result.value
+              } else {
+                request.yar.set('model', result.value)
+              }
 
               return result.value
             } catch (err) {

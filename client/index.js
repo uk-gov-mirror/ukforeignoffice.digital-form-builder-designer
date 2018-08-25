@@ -310,6 +310,20 @@ class App extends React.Component {
     }).then(res => res.json()).then(data => {
       data.save = this.save
       this.setState({ data })
+
+      // Reload frame if split screen and in playground mode
+      if (window.DFBD.playgroundMode) {
+        const parent = window.parent
+        if (parent.location.pathname === '/split') {
+          const frames = window.parent.frames
+  
+          if (frames.length === 2) {
+            const preview = window.parent.frames[1]
+            preview.location.reload()
+          }
+        }
+      }
+
       return data
     }).catch(err => {
       console.error(err)

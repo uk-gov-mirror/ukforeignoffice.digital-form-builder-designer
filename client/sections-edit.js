@@ -40,7 +40,7 @@ class SectionsEdit extends React.Component {
                   <li key={section.name}>
                     <a href='#' onClick={e => this.onClickSection(e, section)}>
                       {section.title}
-                    </a> ({section.name})
+                    </a>
                   </li>
                 ))}
                 <li>

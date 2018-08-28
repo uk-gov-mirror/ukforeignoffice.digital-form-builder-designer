@@ -40,7 +40,7 @@ class ListsEdit extends React.Component {
                   <li key={list.name}>
                     <a href='#' onClick={e => this.onClickList(e, list)}>
                       {list.title}
-                    </a> ({list.name})
+                    </a>
                   </li>
                 ))}
                 <li>

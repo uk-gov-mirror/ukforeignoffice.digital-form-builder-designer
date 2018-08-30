@@ -1,5 +1,9 @@
+const listTypes = ['SelectField', 'RadiosField', 'CheckboxesField']
 
 function componentToString (component) {
+  if (~listTypes.indexOf(component.type)) {
+    return `${component.type}<${component.options.list}>`
+  }
   return `${component.type}`
 }
 
@@ -27,7 +31,7 @@ function DataModel (props) {
   })
 
   return (
-    <div className=''>
+    <div>
       <pre>{JSON.stringify(model, null, 2)}</pre>
     </div>
   )

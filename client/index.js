@@ -244,7 +244,10 @@ class Menu extends React.Component {
           onClick={() => this.setState({ showDataModel: true })}>View Data Model</button>{' '}
 
         <button className='govuk-button govuk-!-font-size-14'
-          onClick={() => this.setState({ showJSONData: true })}>View JSON</button>
+          onClick={() => this.setState({ showJSONData: true })}>View JSON</button>{' '}
+
+        <button className='govuk-button govuk-!-font-size-14'
+          onClick={() => this.setState({ showSummary: true })}>Summary</button>
 
         {playgroundMode && (
           <div className="govuk-!-margin-top-4">
@@ -282,6 +285,11 @@ class Menu extends React.Component {
         <Flyout title='JSON Data' show={this.state.showJSONData}
           onHide={() => this.setState({ showJSONData: false })}>
           <pre>{JSON.stringify(data, null, 2)}</pre>
+        </Flyout>
+
+        <Flyout title='Summary' show={this.state.showSummary}
+          onHide={() => this.setState({ showSummary: false })}>
+          <pre>{JSON.stringify(data.pages.map(page => page.path), null, 2)}</pre>
         </Flyout>
       </div>
     )

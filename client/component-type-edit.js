@@ -261,6 +261,7 @@ function ParaEdit (props) {
 }
 
 const InsetTextEdit = ParaEdit
+const HtmlEdit = ParaEdit
 
 function DetailsEdit (props) {
   const { component } = props
@@ -293,6 +294,7 @@ const componentTypeEditors = {
   'RadiosFieldEdit': RadiosFieldEdit,
   'CheckboxesFieldEdit': CheckboxesFieldEdit,
   'ParaEdit': ParaEdit,
+  'HtmlEdit': HtmlEdit,
   'InsetTextEdit': InsetTextEdit,
   'DetailsEdit': DetailsEdit
 }

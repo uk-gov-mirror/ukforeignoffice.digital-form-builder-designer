@@ -80,6 +80,11 @@ const componentTypes = [
     subType: 'content'
   },
   {
+    name: 'Html',
+    title: 'Html',
+    subType: 'content'
+  },
+  {
     name: 'InsetText',
     title: 'Inset text',
     subType: 'content'

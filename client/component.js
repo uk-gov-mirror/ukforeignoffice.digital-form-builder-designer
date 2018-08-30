@@ -22,6 +22,7 @@ export const componentTypes = {
   'YesNoField': YesNoField,
   'UkAddressField': UkAddressField,
   'Para': Para,
+  'Html': Html,
   'InsetText': InsetText,
   'Details': Details
 }
@@ -224,6 +225,16 @@ function Para () {
       <div className='line' />
       <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
       <div className='line' />
+    </Base>
+  )
+}
+
+function Html () {
+  return (
+    <Base>
+      <div className='html'>
+        <span className='line xshort govuk-!-margin-bottom-1 govuk-!-margin-top-1' />
+      </div>
     </Base>
   )
 }

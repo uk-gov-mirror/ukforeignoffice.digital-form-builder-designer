@@ -202,6 +202,17 @@
   .inset {
     border-left: 6px solid #bfc1c3;
   }
+
+  .html {
+    &:before {
+      content: '⟨';
+      font-size: 20px;
+    }
+    &:after {
+      content: '⟩';
+      font-size: 20px;
+    }
+  }
 }
 
 .drag-handle {

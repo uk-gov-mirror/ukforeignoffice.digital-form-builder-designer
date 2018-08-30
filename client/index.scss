@@ -267,10 +267,18 @@
     height: 100%;
     // padding: 20px;
     min-width: 300px;
-    max-width: 600px;
+    // max-width: 600px;
     box-sizing: border-box;
     position: relative;
     background-color: #fff;
+
+    &.large {
+      width: 75%;
+    }
+
+    &.xlarge {
+      width: 95%;
+    }
 
     > .close {
       cursor: pointer;

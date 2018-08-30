@@ -45,7 +45,12 @@ class ListEdit extends React.Component {
     // Items
     const texts = formData.getAll('text').map(t => t.trim())
     const values = formData.getAll('value').map(t => t.trim())
-    copyList.items = texts.map((t, i) => ({ text: t, value: values[i] }))
+    const descriptions = formData.getAll('description').map(t => t.trim())
+    copyList.items = texts.map((t, i) => ({
+      text: t,
+      value: values[i],
+      description: descriptions[i]
+  }))
 
     data.save(copy)
       .then(data => {
@@ -108,20 +113,20 @@ class ListEdit extends React.Component {
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>
-          <input className='govuk-input' id='list-name' name='name'
+          <input className='govuk-input govuk-input--width-20' id='list-name' name='name'
             type='text' defaultValue={list.name} required pattern='^\S+'
             onBlur={this.onBlurName} />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-title'>Title</label>
-          <input className='govuk-input' id='list-title' name='title'
+          <input className='govuk-input govuk-!-width-two-thirds' id='list-title' name='title'
             type='text' defaultValue={list.title} required />
         </div>
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-type'>Value type</label>
-          <select className='govuk-select' id='list-type' name='type'
+          <select className='govuk-select govuk-input--width-10' id='list-type' name='type'
             value={state.type}
             onChange={e => this.setState({ type: e.target.value })}>
             <option value='string'>String</option>

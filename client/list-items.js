@@ -21,7 +21,7 @@ class ListItems extends React.Component {
 
   onClickAddItem = e => {
     this.setState({
-      items: this.state.items.concat({ text: '', value: '' })
+      items: this.state.items.concat({ text: '', value: '', description: '' })
     })
   }
 
@@ -99,6 +99,7 @@ class ListItems extends React.Component {
           <tr className='govuk-table__row'>
             <th className='govuk-table__header' scope='col'>Text</th>
             <th className='govuk-table__header' scope='col'>Value</th>
+            <th className='govuk-table__header' scope='col'>Description</th>
             <th className='govuk-table__header' scope='col'>
               <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
             </th>
@@ -125,6 +126,11 @@ class ListItems extends React.Component {
                       onBlur={this.onBlur} />
                   )
                 }
+              </td>
+              <td className='govuk-table__cell'>
+                <input className='govuk-input' name='description'
+                  type='text' defaultValue={item.description}
+                  onBlur={this.onBlur} />
               </td>
               <td className='govuk-table__cell' width='20px'>
                 <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>

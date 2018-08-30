@@ -273,7 +273,7 @@ class Menu extends React.Component {
         </Flyout>
 
         <Flyout title='Edit Lists' show={this.state.showEditLists}
-          onHide={() => this.setState({ showEditLists: false })}>
+          onHide={() => this.setState({ showEditLists: false })} width='xlarge'>
           <ListsEdit data={data} onCreate={() => this.setState({ showEditLists: false })} />
         </Flyout>
 
@@ -283,7 +283,7 @@ class Menu extends React.Component {
         </Flyout>
 
         <Flyout title='JSON Data' show={this.state.showJSONData}
-          onHide={() => this.setState({ showJSONData: false })}>
+          onHide={() => this.setState({ showJSONData: false })} width='large'>
           <pre>{JSON.stringify(data, null, 2)}</pre>
         </Flyout>
 

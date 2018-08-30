@@ -25,7 +25,13 @@ class ListCreate extends React.Component {
     // Items
     const texts = formData.getAll('text').map(t => t.trim())
     const values = formData.getAll('value').map(t => t.trim())
-    const items = texts.map((t, i) => ({ text: t, value: values[i] }))
+    const descriptions = formData.getAll('description').map(t => t.trim())
+
+    const items = texts.map((t, i) => ({
+      text: t,
+      value: values[i],
+      description: descriptions[i]
+  }))
 
     copy.lists.push({ name, title, type, items })
 

@@ -4,9 +4,11 @@ function Flyout (props) {
     return null
   }
 
+  const width = props.width || ''
+
   return (
     <div className='flyout-menu show'>
-      <div className='flyout-menu-container'>
+      <div className={`flyout-menu-container ${width}`}>
         <a title='Close' className='close govuk-body govuk-!-font-size-16' onClick={e => props.onHide(e)}>Close</a>
         <div className='panel'>
           <div className='panel-header govuk-!-padding-top-4 govuk-!-padding-left-4'>

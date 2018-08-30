@@ -221,6 +221,15 @@ function RadiosFieldEdit (props) {
           </select>
         </div>
       </div>
+
+      <div className='govuk-checkboxes govuk-form-group'>
+        <div className='govuk-checkboxes__item'>
+          <input className='govuk-checkboxes__input' id='field-options.bold' data-cast='boolean'
+            name='options.bold' type='checkbox' defaultChecked={options.bold === true} />
+          <label className='govuk-label govuk-checkboxes__label'
+            htmlFor='field-options.bold'>Bold labels</label>
+        </div>
+      </div>
     </FieldEdit>
   )
 }
@@ -242,6 +251,15 @@ function CheckboxesFieldEdit (props) {
               return <option key={list.name} value={list.name}>{list.title}</option>
             })}
           </select>
+        </div>
+      </div>
+
+      <div className='govuk-checkboxes govuk-form-group'>
+        <div className='govuk-checkboxes__item'>
+          <input className='govuk-checkboxes__input' id='field-options.bold' data-cast='boolean'
+            name='options.bold' type='checkbox' defaultChecked={options.bold === true} />
+          <label className='govuk-label govuk-checkboxes__label'
+            htmlFor='field-options.bold'>Bold labels</label>
         </div>
       </div>
     </FieldEdit>

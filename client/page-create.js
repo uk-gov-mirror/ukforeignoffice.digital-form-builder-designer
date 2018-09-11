@@ -73,6 +73,7 @@ class PageCreate extends React.Component {
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='page-path'>Path</label>
+          <span className='govuk-hint'>E.g. /your-occupation or /personal-details/date-of-birth</span>
           <input className='govuk-input' id='page-path' name='path'
             type='text' required
             onChange={e => e.target.setCustomValidity('')} />

@@ -9,7 +9,7 @@ function Classes (props) {
     <div className='govuk-form-group'>
       <label className='govuk-label govuk-label--s' htmlFor='field-options.classes'>Classes</label>
       <span className='govuk-hint'>Additional CSS classes to add to the field<br />
-      E.g. govuk-input--width-2, govuk-input--width-4, govuk-input--width-10, govuk-!-width-one-half, govuk-!-width-two-thirds, govuk-!-width-three-quarters</span>
+      E.g. govuk-input--width-2 (or 3, 4, 5, 10, 20) or govuk-!-width-one-half (two-thirds, three-quarters etc.)</span>
       <input className='govuk-input' id='field-options.classes' name='options.classes' type='text'
         defaultValue={options.classes} />
     </div>
@@ -24,20 +24,23 @@ function FieldEdit (props) {
     <div>
       <div className='govuk-form-group'>
         <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
+        <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
         <input className='govuk-input govuk-input--width-20' id='field-name'
           name='name' type='text' defaultValue={component.name} required pattern='^\S+' />
       </div>
 
       <div className='govuk-form-group'>
         <label className='govuk-label govuk-label--s' htmlFor='field-title'>Title</label>
+        <span className='govuk-hint'>This is the title text displayed on the page</span>
         <input className='govuk-input' id='field-title' name='title' type='text'
           defaultValue={component.title} required />
       </div>
 
       <div className='govuk-form-group'>
         <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Hint (optional)</label>
-        <input className='govuk-input' id='field-hint' name='hint' type='text'
-          defaultValue={component.hint} />
+        <span className='govuk-hint'>The hint can include HTML</span>
+        <textarea className='govuk-textarea' id='field-hint' name='hint'
+          defaultValue={component.hint} rows='2' />
       </div>
 
       <div className='govuk-checkboxes govuk-form-group'>
@@ -272,6 +275,7 @@ function ParaEdit (props) {
   return (
     <div className='govuk-form-group'>
       <label className='govuk-label' htmlFor='para-content'>Content</label>
+      <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
       <textarea className='govuk-textarea' id='para-content' name='content'
         defaultValue={component.content} rows='10' required />
     </div>
@@ -295,6 +299,7 @@ function DetailsEdit (props) {
 
       <div className='govuk-form-group'>
         <label className='govuk-label' htmlFor='details-content'>Content</label>
+        <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
         <textarea className='govuk-textarea' id='details-content' name='content'
           defaultValue={component.content} rows='10' required />
       </div>

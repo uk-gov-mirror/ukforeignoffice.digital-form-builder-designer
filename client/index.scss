@@ -10,7 +10,7 @@
 #app {
   @include govuk-media-query($from: tablet) {
     .menu {
-      padding: 5px;
+      padding: 3px;
       position: fixed;
       z-index: 999;
       background-color: #fff;
@@ -58,6 +58,10 @@
           display: inline;
         }
       }
+
+      &.filtered {
+        // background-color: lightgray;
+      }
     }
   }
 
@@ -68,6 +72,12 @@
     z-index: 999;
     background: lightgray;
     padding: 5px;
+    max-width: 50%;
+    max-height: 25%;
+    overflow: auto;
+    border-top: solid 1px #000;
+    border-left: solid 1px #000;
+
     polyline {
       stroke-width: 1
     }
@@ -423,7 +433,7 @@ polyline {
   cursor: pointer;
 
   fill: none;
-  stroke-width: 5;
+  stroke-width: 4;
   stroke: #4781ff;
 
   &:hover {

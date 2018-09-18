@@ -52,14 +52,14 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data } = this.props
+    const { page, data, filtered } = this.props
     const { sections } = data
     const formComponents = page.components.filter(comp => componentTypes.find(type => type.name === comp.type).subType === 'field')
     const pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
     const section = page.section && sections.find(section => section.name === page.section)
 
     return (
-      <div id={page.path} className='page xtooltip' title={page.path} style={this.props.layout}>
+      <div id={page.path} className={`page${filtered ? ' filtered' : ''}`} title={page.path} style={this.props.layout}>
         <div className='handle' onClick={(e) => this.showEditor(e, true)} />
         <div className='govuk-!-padding-top-2 govuk-!-padding-left-2 govuk-!-padding-right-2'>
 

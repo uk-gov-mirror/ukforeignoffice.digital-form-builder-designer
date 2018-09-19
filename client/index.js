@@ -283,7 +283,9 @@ class Visualisation extends React.Component {
 }
 
 class Menu extends React.Component {
-  state = {}
+  state = {
+    tab: 'model'
+  }
 
   onClickUpload = (e) => {
     e.preventDefault()
@@ -299,6 +301,11 @@ class Menu extends React.Component {
       const content = JSON.parse(evt.target.result)
       data.save(content)
     }
+  }
+
+  setTab (e, name) {
+    e.preventDefault()
+    this.setState({ tab: name })
   }
 
   render () {
@@ -320,12 +327,6 @@ class Menu extends React.Component {
 
           <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showEditLists: true })}>Edit Lists</button>{' '}
-
-          <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showDataModel: true })}>View Data Model</button>{' '}
-
-          <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showJSONData: true })}>View JSON</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showSummary: true })}>Summary</button>
@@ -358,19 +359,45 @@ class Menu extends React.Component {
             <ListsEdit data={data} onCreate={() => this.setState({ showEditLists: false })} />
           </Flyout>
 
-          <Flyout title='Data Model' show={this.state.showDataModel}
-            onHide={() => this.setState({ showDataModel: false })}>
-            <DataModel data={data} />
-          </Flyout>
-
-          <Flyout title='JSON Data' show={this.state.showJSONData}
-            onHide={() => this.setState({ showJSONData: false })} width='large'>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-          </Flyout>
-
-          <Flyout title='Summary' show={this.state.showSummary}
+          <Flyout title='Summary' show={this.state.showSummary} width='large'
             onHide={() => this.setState({ showSummary: false })}>
-            <pre>{JSON.stringify(data.pages.map(page => page.path), null, 2)}</pre>
+            <div className='js-enabled' style={{ paddingTop: '3px' }}>
+              <div className='govuk-tabs' data-module='tabs'>
+                <h2 className='govuk-tabs__title'>Summary</h2>
+                <ul className='govuk-tabs__list'>
+                  <li className='govuk-tabs__list-item'>
+                    <a className='govuk-tabs__tab' href='#'
+                      aria-selected={this.state.tab === 'model' ? 'true' : 'false'}
+                      onClick={e => this.setTab(e, 'model')}>Data Model</a>
+                  </li>
+                  <li className='govuk-tabs__list-item'>
+                    <a className='govuk-tabs__tab' href='#'
+                      aria-selected={this.state.tab === 'json' ? 'true' : 'false'}
+                      onClick={e => this.setTab(e, 'json')}>JSON</a>
+                  </li>
+                  <li className='govuk-tabs__list-item'>
+                    <a className='govuk-tabs__tab' href='#'
+                      aria-selected={this.state.tab === 'summary' ? 'true' : 'false'}
+                      onClick={e => this.setTab(e, 'summary')}>Summary</a>
+                  </li>
+                </ul>
+                {this.state.tab === 'model' &&
+                  <section className='govuk-tabs__panel'>
+                    <DataModel data={data} />
+                  </section>
+                }
+                {this.state.tab === 'json' &&
+                  <section className='govuk-tabs__panel'>
+                    <pre>{JSON.stringify(data, null, 2)}</pre>
+                  </section>
+                }
+                {this.state.tab === 'summary' &&
+                  <section className='govuk-tabs__panel'>
+                    <pre>{JSON.stringify(data.pages.map(page => page.path), null, 2)}</pre>
+                  </section>
+                }
+              </div>
+            </div>
           </Flyout>
         </span>
         }

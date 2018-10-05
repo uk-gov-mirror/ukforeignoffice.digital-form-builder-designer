@@ -1,15 +1,11 @@
-/* global React SortableHOC */
-
+import React from 'react'
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
 import componentTypes from '../component-types.js'
 import { clone } from './helpers'
-
-const SortableElement = SortableHOC.SortableElement
-const SortableContainer = SortableHOC.SortableContainer
-const arrayMove = SortableHOC.arrayMove
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>
   <div className='component-item'>

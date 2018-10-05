@@ -1,7 +1,6 @@
-/* global React */
+import React from 'react'
 import { clone, getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
-// import { componentTypes as componentTypesIcons } from './component'
 import componentTypes from '../component-types.js'
 
 class ComponentCreate extends React.Component {
@@ -43,10 +42,6 @@ class ComponentCreate extends React.Component {
                 return <option key={type.name} value={type.name}>{type.title}</option>
               })}
             </select>
-            {/* {Object.keys(componentTypesIcons).map(type => {
-              const Tag = componentTypesIcons[type]
-              return <div className='component govuk-!-padding-2'><Tag /></div>
-            })} */}
           </div>
 
           {this.state.component && this.state.component.type && (

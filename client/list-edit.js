@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 import { clone } from './helpers'
 import ListItems from './list-items'
 
@@ -50,7 +50,7 @@ class ListEdit extends React.Component {
       text: t,
       value: values[i],
       description: descriptions[i]
-  }))
+    }))
 
     data.save(copy)
       .then(data => {

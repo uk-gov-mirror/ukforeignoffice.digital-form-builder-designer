@@ -1,20 +1,27 @@
+import resolve from 'rollup-plugin-node-resolve'
+import globals from 'rollup-plugin-node-globals'
 import babel from 'rollup-plugin-babel'
-
-// import commonjs from 'rollup-plugin-commonjs'
-// import nodeResolve from 'rollup-plugin-node-resolve'
+import commonjs from 'rollup-plugin-commonjs'
 
 export default {
   input: 'client/index.js',
   output: {
     file: 'dist/designer.js',
     format: 'iife',
-    sourcemap: 'inline'
+    globals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM'
+    }
   },
   plugins: [
-    // nodeResolve(),
+    resolve(),
+    commonjs({
+      include: 'node_modules/**'
+    }),
+    globals(),
     babel({
-      exclude: 'node_modules/**' // only transpile our source code
-    }) // ,
-    // commonjs(),
-  ]
+      exclude: 'node_modules/**'
+    })
+  ],
+  external: ['react', 'react-dom']
 }

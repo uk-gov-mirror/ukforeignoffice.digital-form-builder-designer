@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 import componentTypes from '../component-types.js'
 
 function Classes (props) {

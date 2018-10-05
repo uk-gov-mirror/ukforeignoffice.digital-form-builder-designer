@@ -1,5 +1,6 @@
-/* global React ReactDOM dagre */
-
+import React from 'react'
+import ReactDOM from 'react-dom'
+import dagre from 'dagre'
 import Page from './page'
 import Flyout from './flyout'
 import DataModel from './data-model'

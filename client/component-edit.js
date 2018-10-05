@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 import { clone, getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
 

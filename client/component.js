@@ -1,8 +1,7 @@
-/* global React SortableHOC */
-
+import React from 'react'
+import { SortableHandle } from 'react-sortable-hoc'
 import Flyout from './flyout'
 import ComponentEdit from './component-edit'
-const SortableHandle = SortableHOC.SortableHandle
 const DragHandle = SortableHandle(() => <span className='drag-handle'>&#9776;</span>)
 
 export const componentTypes = {

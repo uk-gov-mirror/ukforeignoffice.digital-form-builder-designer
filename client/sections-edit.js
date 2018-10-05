@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 import SectionEdit from './section-edit'
 import SectionCreate from './section-create'
 

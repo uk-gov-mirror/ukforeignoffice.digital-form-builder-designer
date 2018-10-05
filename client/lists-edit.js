@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react'
 import ListEdit from './list-edit'
 import ListCreate from './list-create'
 

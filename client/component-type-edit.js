@@ -1,5 +1,5 @@
 import React from 'react'
-import componentTypes from '../component-types.js'
+import componentTypes from 'digital-form-builder-engine/component-types'
 
 function Classes (props) {
   const { component } = props

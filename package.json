@@ -15,6 +15,7 @@
   "author": "defra",
   "license": "ISC",
   "dependencies": {
+    "digital-form-builder-engine": "0.0.12",
     "joi": "13.6.0"
   },
   "devDependencies": {
@@ -25,7 +26,6 @@
     "@babel/preset-react": "7.0.0",
     "babel-eslint": "10.0.1",
     "dagre": "0.8.2",
-    "digital-form-builder-engine": "0.0.8",
     "react-sortable-hoc": "0.8.3",
     "rollup": "0.66.2",
     "rollup-plugin-babel": "4.0.3",

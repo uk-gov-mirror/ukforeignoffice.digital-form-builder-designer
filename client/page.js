@@ -1,10 +1,10 @@
 import React from 'react'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
+import componentTypes from 'digital-form-builder-engine/component-types'
 import Flyout from './flyout'
 import PageEdit from './page-edit'
 import { Component } from './component'
 import ComponentCreate from './component-create'
-import componentTypes from '../component-types.js'
 import { clone } from './helpers'
 
 const SortableItem = SortableElement(({ index, page, component, data }) =>

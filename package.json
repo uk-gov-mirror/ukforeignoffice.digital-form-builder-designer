@@ -1,6 +1,6 @@
 {
   "name": "digital-form-builder-designer",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A hapi plugin providing a visual designer for digital form builder based applications",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "author": "defra",
   "license": "ISC",
   "dependencies": {
-    "digital-form-builder-engine": "0.0.12",
+    "digital-form-builder-engine": "0.0.13",
     "joi": "13.6.0"
   },
   "devDependencies": {

@@ -1,8 +1,5 @@
 const joi = require('joi')
-const fs = require('fs')
-const util = require('util')
 const schema = require('digital-form-builder-engine/schema')
-const writeFile = util.promisify(fs.writeFile)
 const pkg = require('./package.json')
 
 module.exports = {
@@ -11,15 +8,18 @@ module.exports = {
     version: pkg.version,
     dependencies: 'vision',
     register: (server, options) => {
-      const { path } = options
-      let data = require(path)
+      const { playgroundModel } = options
+
+      function getData (request) {
+        return request.yar.get('model') || playgroundModel
+      }
 
       // DESIGNER
       server.route({
         method: 'get',
         path: '/designer',
         handler: (request, h) => {
-          return h.view('designer')
+          return h.view('designer', { playgroundMode: true })
         }
       })
 
@@ -39,11 +39,11 @@ module.exports = {
         options: {
           handler: (request, h) => {
             if (request.query.format) {
-              const json = JSON.stringify(data, null, 2)
+              const json = JSON.stringify(getData(request), null, 2)
               return h.response(json).type('application/json')
             }
 
-            return data
+            return getData(request)
           },
           validate: {
             query: {
@@ -66,11 +66,9 @@ module.exports = {
                 throw new Error('Schema validation failed')
               }
 
-              await writeFile(path, JSON.stringify(result.value, null, 2))
+              request.yar.set('model', result.value)
 
-              data = result.value
-
-              return data
+              return result.value
             } catch (err) {
               return h.response({ ok: false, err: 'Write file failed' }).code(401)
             }

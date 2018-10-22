@@ -1,4 +1,5 @@
 import React from 'react'
+import Editor from './editor'
 import { clone } from './helpers'
 
 class LinkCreate extends React.Component {
@@ -66,8 +67,10 @@ class LinkCreate extends React.Component {
           <span id='link-condition-hint' className='govuk-hint'>
             The link will only be used if the expression evaluates to truthy.
           </span>
-          <input className='govuk-input' id='link-condition' name='if'
-            type='text' aria-describedby='link-condition-hint' />
+          <Editor name='if' />
+
+          {/* <input className='govuk-input' id='link-condition' name='if'
+            type='text' aria-describedby='link-condition-hint' /> */}
         </div>
 
         <button className='govuk-button' type='submit'>Save</button>

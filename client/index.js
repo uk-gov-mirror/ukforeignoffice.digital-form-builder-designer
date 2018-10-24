@@ -9,6 +9,7 @@ import LinkEdit from './link-edit'
 import LinkCreate from './link-create'
 import ListsEdit from './lists-edit'
 import SectionsEdit from './sections-edit'
+import ConditionsEdit from './conditions-edit'
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -327,6 +328,9 @@ class Menu extends React.Component {
             onClick={() => this.setState({ showEditSections: true })}>Edit Sections</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
+            onClick={() => this.setState({ showEditConditions: true })}>Edit Conditions</button>{' '}
+
+          <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showEditLists: true })}>Edit Lists</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
@@ -353,6 +357,11 @@ class Menu extends React.Component {
           <Flyout title='Edit Sections' show={this.state.showEditSections}
             onHide={() => this.setState({ showEditSections: false })}>
             <SectionsEdit data={data} onCreate={() => this.setState({ showEditSections: false })} />
+          </Flyout>
+
+          <Flyout title='Edit Conditions' show={this.state.showEditConditions}
+            onHide={() => this.setState({ showEditConditions: false })} width='large'>
+            <ConditionsEdit data={data} onCreate={() => this.setState({ showEditConditions: false })} />
           </Flyout>
 
           <Flyout title='Edit Lists' show={this.state.showEditLists}

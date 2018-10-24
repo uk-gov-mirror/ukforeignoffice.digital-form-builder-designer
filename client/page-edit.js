@@ -11,6 +11,7 @@ class PageEdit extends React.Component {
     const newPath = formData.get('path').trim()
     const title = formData.get('title').trim()
     const section = formData.get('section').trim()
+    const controller = formData.get('controller').trim()
     const { data, page } = this.props
 
     const copy = clone(data)
@@ -49,6 +50,12 @@ class PageEdit extends React.Component {
       copyPage.section = section
     } else {
       delete copyPage.section
+    }
+
+    if (controller) {
+      copyPage.controller = controller
+    } else {
+      delete copyPage.controller
     }
 
     data.save(copy)
@@ -127,6 +134,16 @@ class PageEdit extends React.Component {
             {sections.map(section => (<option key={section.name} value={section.name}>{section.title}</option>))}
           </select>
         </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='page-controller'>Controller (optional)</label>
+          <span id='page-controller-hint' className='govuk-hint'>
+            JavaScript Page controller class file path
+          </span>
+          <input className='govuk-input' id='page-controller' name='controller'
+            type='text' defaultValue={page.controller} aria-describedby='page-controller-hint' />
+        </div>
+
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
       </form>

@@ -7,6 +7,7 @@ export default {
   input: 'client/index.js',
   output: {
     file: 'dist/designer.js',
+    sourcemap: 'inline',
     format: 'iife',
     globals: {
       'react': 'React',
@@ -16,7 +17,7 @@ export default {
   plugins: [
     resolve(),
     commonjs({
-      include: 'node_modules/**'
+      include: ['node_modules/**', '../digital-form-builder-engine/**']
     }),
     globals(),
     babel({

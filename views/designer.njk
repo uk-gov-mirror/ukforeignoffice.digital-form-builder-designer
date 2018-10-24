@@ -22,9 +22,11 @@
   </head>
   <body>
     <script>
-      window.DFBD = {
-        playgroundMode: {{ playgroundMode }}
-      }
+      {% if playgroundMode %}
+        window.DFBD = { playgroundMode: true }
+      {% else %}
+        window.DFBD = { playgroundMode: false }
+      {% endif %}
     </script>
     <div id="root"></div>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>

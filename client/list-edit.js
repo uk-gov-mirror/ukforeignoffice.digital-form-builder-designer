@@ -111,6 +111,8 @@ class ListEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
+        <a className="govuk-back-link" href='#'
+          onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>
           <input className='govuk-input govuk-input--width-20' id='list-name' name='name'
@@ -138,7 +140,6 @@ class ListEdit extends React.Component {
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
-        <a className='pull-right' href='#' onClick={e => this.props.onCancel(e)}>Cancel</a>
       </form>
     )
   }

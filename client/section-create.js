@@ -42,6 +42,8 @@ class SectionCreate extends React.Component {
   render () {
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
+        <a className="govuk-back-link" href='#'
+          onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>
           <span className='govuk-hint'>This is used as a namespace in the JSON output for all pages in this section. Use `camelCasing` e.g. checkBeforeStart or personalDetails.</span>
@@ -56,7 +58,6 @@ class SectionCreate extends React.Component {
             type='text' required />
         </div>
         <button className='govuk-button' type='submit'>Save</button>
-        <a className='pull-right' href='#' onClick={e => this.props.onCancel(e)}>Cancel</a>
       </form>
     )
   }

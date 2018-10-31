@@ -5,8 +5,8 @@ import Page from './page'
 import Flyout from './flyout'
 import DataModel from './data-model'
 import PageCreate from './page-create'
-import LinkEdit from './link-edit'
-import LinkCreate from './link-create'
+// import LinkEdit from './link-edit'
+// import LinkCreate from './link-create'
 import ListsEdit from './lists-edit'
 import SectionsEdit from './sections-edit'
 import ConditionsEdit from './conditions-edit'
@@ -17,7 +17,7 @@ function getLayout (pages, el) {
 
   // Set an object for the graph label
   g.setGraph({
-    rankdir: 'LR',
+    rankdir: 'TB',
     marginx: 50,
     marginy: 150,
     ranksep: 160
@@ -82,45 +82,45 @@ function getLayout (pages, el) {
   return { g, pos }
 }
 
-class Lines extends React.Component {
-  state = {}
+// class Lines extends React.Component {
+//   state = {}
 
-  editLink = (edge) => {
-    console.log('clicked', edge)
-    this.setState({
-      showEditor: edge
-    })
-  }
+//   editLink = (edge) => {
+//     console.log('clicked', edge)
+//     this.setState({
+//       showEditor: edge
+//     })
+//   }
 
-  render () {
-    const { layout, data } = this.props
+//   render () {
+//     const { layout, data } = this.props
 
-    return (
-      <div>
-        <svg height={layout.height} width={layout.width}>
-          {
-            layout.edges.map(edge => {
-              const points = edge.points.map(points => `${points.x},${points.y}`).join(' ')
-              return (
-                <g key={points}>
-                  <polyline
-                    onClick={() => this.editLink(edge)}
-                    points={points} />
-                </g>
-              )
-            })
-          }
-        </svg>
+//     return (
+//       <div>
+//         <svg height={layout.height} width={layout.width}>
+//           {
+//             layout.edges.map(edge => {
+//               const points = edge.points.map(points => `${points.x},${points.y}`).join(' ')
+//               return (
+//                 <g key={points}>
+//                   <polyline
+//                     onClick={() => this.editLink(edge)}
+//                     points={points} />
+//                 </g>
+//               )
+//             })
+//           }
+//         </svg>
 
-        <Flyout title='Edit Link' show={this.state.showEditor}
-          onHide={e => this.setState({ showEditor: false })}>
-          <LinkEdit edge={this.state.showEditor} data={data}
-            onEdit={e => this.setState({ showEditor: false })} />
-        </Flyout>
-      </div>
-    )
-  }
-}
+//         <Flyout title='Edit Link' show={this.state.showEditor}
+//           onHide={e => this.setState({ showEditor: false })}>
+//           <LinkEdit edge={this.state.showEditor} data={data}
+//             onEdit={e => this.setState({ showEditor: false })} />
+//         </Flyout>
+//       </div>
+//     )
+//   }
+// }
 
 class Minimap extends React.Component {
   state = {}
@@ -274,8 +274,8 @@ class Visualisation extends React.Component {
           key={index} data={data} page={page} filtered={!filterPaths.includes(page.path)}
           layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
-        {this.state.layout &&
-          <Lines layout={this.state.layout} data={data} />}
+        {/* {this.state.layout &&
+          <Lines layout={this.state.layout} data={data} />} */}
 
         {this.state.layout &&
           <Minimap layout={this.state.layout} data={data} />}
@@ -321,8 +321,8 @@ class Menu extends React.Component {
           <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showAddPage: true })}>Add Page</button>{' '}
 
-          <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showAddLink: true })}>Add Link</button>{' '}
+          {/* <button className='govuk-button govuk-!-font-size-14'
+            onClick={() => this.setState({ showAddLink: true })}>Add Link</button>{' '} */}
 
           <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showEditSections: true })}>Edit Sections</button>{' '}
@@ -349,10 +349,10 @@ class Menu extends React.Component {
             <PageCreate data={data} onCreate={() => this.setState({ showAddPage: false })} />
           </Flyout>
 
-          <Flyout title='Add Link' show={this.state.showAddLink}
+          {/* <Flyout title='Add Link' show={this.state.showAddLink}
             onHide={() => this.setState({ showAddLink: false })}>
             <LinkCreate data={data} onCreate={() => this.setState({ showAddLink: false })} />
-          </Flyout>
+          </Flyout> */}
 
           <Flyout title='Edit Sections' show={this.state.showEditSections}
             onHide={() => this.setState({ showEditSections: false })}>

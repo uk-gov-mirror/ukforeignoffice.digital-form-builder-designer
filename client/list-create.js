@@ -63,6 +63,8 @@ class ListCreate extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
+        <a className="govuk-back-link" href='#'
+          onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>
           <input className='govuk-input' id='list-name' name='name'
@@ -88,7 +90,6 @@ class ListCreate extends React.Component {
 
         <ListItems type={state.type} />
 
-        <a className='pull-right' href='#' onClick={e => this.props.onCancel(e)}>Cancel</a>
         <button className='govuk-button' type='submit'>Save</button>
       </form>
     )

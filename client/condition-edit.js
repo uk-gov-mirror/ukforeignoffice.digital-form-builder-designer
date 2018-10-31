@@ -92,6 +92,8 @@ class ConditionEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
+        <a className="govuk-back-link" href='#'
+          onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-name'>Name</label>
           <input className='govuk-input' id='condition-name' name='name'
@@ -104,7 +106,6 @@ class ConditionEdit extends React.Component {
         </div>
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
-        <a className='pull-right' href='#' onClick={e => this.props.onCancel(e)}>Cancel</a>
       </form>
     )
   }

@@ -1,5 +1,6 @@
 import React from 'react'
 import componentTypes from 'digital-form-builder-engine/component-types'
+import Editor from './editor';
 
 function Classes (props) {
   const { component } = props
@@ -276,8 +277,9 @@ function ParaEdit (props) {
     <div className='govuk-form-group'>
       <label className='govuk-label' htmlFor='para-content'>Content</label>
       <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
-      <textarea className='govuk-textarea' id='para-content' name='content'
-        defaultValue={component.content} rows='10' required />
+      {/* <textarea className='govuk-textarea' id='para-content' name='content'
+        defaultValue={component.content} rows='10' required /> */}
+      <Editor name='content' value={component.content} />  
     </div>
   )
 }

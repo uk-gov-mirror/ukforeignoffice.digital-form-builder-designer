@@ -92,16 +92,16 @@ class LinkEdit extends React.Component {
           </select>
         </div>
 
-        <div className='govuk-form-group'>
+        {/* <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='link-condition'>Condition (optional)</label>
           <span id='link-condition-hint' className='govuk-hint'>
             The link will only be used if the expression evaluates to truthy.
           </span>
 
-          <Editor name='if' value={link.if} />
+          <Editor name='if' value={link.if} /> */}
           {/* <input className='govuk-input' id='link-condition' name='if'
             type='text' defaultValue={link.if} aria-describedby='link-condition-hint' /> */}
-        </div>
+        {/* </div> */}
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

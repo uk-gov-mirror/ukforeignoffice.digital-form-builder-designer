@@ -15,7 +15,7 @@
   "author": "defra",
   "license": "ISC",
   "dependencies": {
-    "digital-form-builder-engine": "0.1.3",
+    "digital-form-builder-engine": "file:../digital-form-builder-engine",
     "joi": "14.0.2"
   },
   "devDependencies": {

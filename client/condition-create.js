@@ -52,7 +52,7 @@ class ConditionCreate extends React.Component {
         </div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='condition-value'>Value</label>
-          <span className='govuk-hint'>This can be any <a href='https://www.npmjs.com/package/jsonic' target='_blank'>loose JSON</a> matching expression</span>
+          <span className='govuk-hint'>This can be any <a href='https://www.npmjs.com/package/expr-eval' target='_blank'>matching expression</a></span>
           <Editor name='value' required />
         </div>
         <button className='govuk-button' type='submit'>Save</button>

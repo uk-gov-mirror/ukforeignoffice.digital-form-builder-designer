@@ -48,17 +48,18 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data, filtered } = this.props
+    const { page, data } = this.props
     const { sections } = data
     const formComponents = page.components.filter(comp => componentTypes.find(type => type.name === comp.type).subType === 'field')
     const pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
     const section = page.section && sections.find(section => section.name === page.section)
+    const conditional = !!page.condition
 
     return (
-      <div id={page.path} className={`page${filtered ? ' filtered' : ''}`} title={page.path} style={this.props.layout}>
+      <div id={page.path} className={`page${conditional ? ' conditional' : ''}`}
+        title={page.path} style={this.props.layout}>
         <div className='handle' onClick={(e) => this.showEditor(e, true)} />
         <div className='govuk-!-padding-top-2 govuk-!-padding-left-2 govuk-!-padding-right-2'>
-
           <h3 className='govuk-heading-s'>
             {section && <span className='govuk-caption-m govuk-!-font-size-14'>{section.title}</span>}
             {pageTitle}
@@ -68,9 +69,6 @@ class Page extends React.Component {
         <SortableList page={page} data={data} pressDelay={200}
           onSortEnd={this.onSortEnd} lockAxis='y' helperClass='dragging'
           lockToContainerEdges useDragHandle />
-        {/* {page.components.map((comp, index) => (
-          <Component key={index} page={page} component={comp} data={data} />
-        ))} */}
 
         <div className='govuk-!-padding-2'>
           <a className='preview pull-right govuk-body govuk-!-font-size-14'

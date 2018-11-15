@@ -125,10 +125,6 @@ class Lines extends React.Component {
 class Minimap extends React.Component {
   state = {}
 
-  onClickPage = (e, path) => {
-    return this.props.toggleFilterPath(path)
-  }
-
   render () {
     const { layout, scale = 0.05 } = this.props
 
@@ -167,9 +163,7 @@ class Minimap extends React.Component {
 }
 
 class Visualisation extends React.Component {
-  state = {
-    filterPaths: []
-  }
+  state = {}
 
   constructor () {
     super()
@@ -178,7 +172,8 @@ class Visualisation extends React.Component {
 
   scheduleLayout () {
     setTimeout(() => {
-      const pages = this.getFilteredPages()
+      const { data } = this.props
+      const { pages } = data
       const layout = getLayout(pages, this.ref.current)
 
       this.setState({
@@ -191,87 +186,19 @@ class Visualisation extends React.Component {
     this.scheduleLayout()
   }
 
-  getFilteredPages () {
-    const includeUpstream = true
-    const includeDownstream = true
-    const { data } = this.props
-    const { filterPaths } = this.state
-    const { pages } = data
-
-    if (!filterPaths.length) {
-      return pages
-    }
-
-    const filteredPages = filterPaths.map(path => pages.find(page => page.path === path))
-
-    // Upstream paths
-    const upstreamPaths = {}
-
-    if (includeUpstream) {
-      filteredPages.forEach(page => {
-        if (Array.isArray(page.next)) {
-          page.next.forEach(next => {
-            upstreamPaths[next.path] = true
-          })
-        }
-      })
-    }
-
-    // Downstream paths
-    const downstreamPaths = {}
-
-    if (includeDownstream) {
-      pages.forEach(page => {
-        if (Array.isArray(page.next)) {
-          page.next.forEach(next => {
-            if (filterPaths.includes(next.path)) {
-              downstreamPaths[page.path] = true
-            }
-          })
-        }
-      })
-    }
-
-    const filter = (page) => {
-      return filterPaths.includes(page.path) ||
-        upstreamPaths[page.path] ||
-        downstreamPaths[page.path]
-    }
-
-    return data.pages.filter(filter)
-  }
-
   componentWillReceiveProps () {
-    this.scheduleLayout()
-  }
-
-  toggleFilterPath = (path) => {
-    const { filterPaths } = this.state
-    const idx = filterPaths.indexOf(path)
-
-    if (idx > -1) {
-      this.setState({
-        filterPaths: filterPaths.filter((item, index) => index === idx)
-      })
-    } else {
-      this.setState({
-        filterPaths: filterPaths.concat(path)
-      })
-    }
-
     this.scheduleLayout()
   }
 
   render () {
     const { data } = this.props
-    const { filterPaths } = this.state
-    const pages = this.getFilteredPages()
+    const { pages } = data
 
     return (
       <div ref={this.ref} className='visualisation' style={this.state.layout &&
         { width: this.state.layout.width, height: this.state.layout.height }}>
         {pages.map((page, index) => <Page
-          key={index} data={data} page={page} filtered={!filterPaths.includes(page.path)}
+          key={index} data={data} page={page}
           layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
         {this.state.layout &&

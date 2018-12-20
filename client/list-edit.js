@@ -46,10 +46,29 @@ class ListEdit extends React.Component {
     const texts = formData.getAll('text').map(t => t.trim())
     const values = formData.getAll('value').map(t => t.trim())
     const descriptions = formData.getAll('description').map(t => t.trim())
+
+    const conditionals = [
+      {
+        components: [
+          {
+            type: formData.get('cond-type') || '',
+            name: formData.get('name') || '',
+            title: formData.get('title') || '',
+            hint: formData.get('hint') || '',
+            options: {
+              classes: 'govuk-!-width-one-third'
+            },
+            schema: {}
+          }
+        ]
+      }
+    ]
+
     copyList.items = texts.map((t, i) => ({
       text: t,
       value: values[i],
-      description: descriptions[i]
+      description: descriptions[i],
+      conditional: conditionals[i]
     }))
 
     data.save(copy)
@@ -111,7 +130,7 @@ class ListEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a className="govuk-back-link" href='#'
+        <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-name'>Name</label>

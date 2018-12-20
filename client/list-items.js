@@ -1,5 +1,6 @@
 import React from 'react'
 import { clone } from './helpers'
+import ComponentConditionCreate from './component-condition-create'
 
 function headDuplicate (arr) {
   for (let i = 0; i < arr.length; i++) {
@@ -21,7 +22,7 @@ class ListItems extends React.Component {
 
   onClickAddItem = e => {
     this.setState({
-      items: this.state.items.concat({ text: '', value: '', description: '' })
+      items: this.state.items.concat({ text: '', value: '', description: '', conditional: '' })
     })
   }
 
@@ -100,6 +101,7 @@ class ListItems extends React.Component {
             <th className='govuk-table__header' scope='col'>Text</th>
             <th className='govuk-table__header' scope='col'>Value</th>
             <th className='govuk-table__header' scope='col'>Description</th>
+            <th className='govuk-table__header' scope='col' />
             <th className='govuk-table__header' scope='col'>
               <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
             </th>
@@ -131,6 +133,11 @@ class ListItems extends React.Component {
                 <input className='govuk-input' name='description'
                   type='text' defaultValue={item.description}
                   onBlur={this.onBlur} />
+              </td>
+              <td className='govuk-table__cell'>
+                <div className='component-item'>
+                  <ComponentConditionCreate />
+                </div>
               </td>
               <td className='govuk-table__cell' width='20px'>
                 <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>

@@ -23,6 +23,7 @@ export const componentTypes = {
   'Para': Para,
   'Html': Html,
   'InsetText': InsetText,
+  'WarningText': WarningText,
   'Details': Details
 }
 
@@ -210,6 +211,18 @@ function InsetText () {
   return (
     <Base>
       <div className='inset govuk-!-padding-left-2'>
+        <div className='line' />
+        <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
+        <div className='line' />
+      </div>
+    </Base>
+  )
+}
+
+function WarningText () {
+  return (
+    <Base>
+      <div className='warning govuk-!-padding-left-2'>
         <div className='line' />
         <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
         <div className='line' />

@@ -47,11 +47,30 @@ class ListEdit extends React.Component {
     const values = formData.getAll('value').map(t => t.trim())
     const descriptions = formData.getAll('description').map(t => t.trim())
     const conditions = formData.getAll('condition').map(t => t.trim())
+
+    const conditionals = [
+      {
+        components: [
+          {
+            type: formData.get('cond-type') || '',
+            name: formData.get('name') || '',
+            title: formData.get('title') || '',
+            hint: formData.get('hint') || '',
+            options: {
+              classes: 'govuk-!-width-one-third'
+            },
+            schema: {}
+          }
+        ]
+      }
+    ]
+
     copyList.items = texts.map((t, i) => ({
       text: t,
       value: values[i],
       description: descriptions[i],
-      condition: conditions[i]
+      condition: conditions[i],
+      conditional: conditionals[i]
     }))
 
     data.save(copy)

@@ -374,6 +374,7 @@ function FlashCardEdit (props) {
 }
 
 const InsetTextEdit = ParaEdit
+const WarningTextEdit = ParaEdit
 const HtmlEdit = ParaEdit
 
 function DetailsEdit (props) {
@@ -410,6 +411,7 @@ const componentTypeEditors = {
   'ParaEdit': ParaEdit,
   'HtmlEdit': HtmlEdit,
   'InsetTextEdit': InsetTextEdit,
+  'WarningTextEdit': WarningTextEdit,
   'DetailsEdit': DetailsEdit,
   'FlashCardEdit': FlashCardEdit,
   'FileUploadFieldEdit': TextFieldEdit,

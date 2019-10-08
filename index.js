@@ -10,14 +10,18 @@ module.exports = {
     name: pkg.name,
     version: pkg.version,
     dependencies: 'vision',
+    multiple: true,
     register: (server, options) => {
       const { path } = options
+      let { basePath } = options
       let data = require(path)
+
+      basePath = `/${basePath}` || ''
 
       // DESIGNER
       server.route({
         method: 'get',
-        path: '/designer',
+        path: `${basePath}/designer`,
         handler: (request, h) => {
           return h.view('designer')
         }
@@ -26,7 +30,7 @@ module.exports = {
       // DESIGNER SPLIT SCREEN
       server.route({
         method: 'get',
-        path: '/split',
+        path: `${basePath}/split`,
         handler: (request, h) => {
           return h.view('split')
         }
@@ -35,7 +39,7 @@ module.exports = {
       // GET DATA
       server.route({
         method: 'GET',
-        path: '/api/data',
+        path: `${basePath}/api/data`,
         options: {
           handler: (request, h) => {
             if (request.query.format) {
@@ -56,7 +60,7 @@ module.exports = {
       // SAVE DATA
       server.route({
         method: 'PUT',
-        path: '/api/data',
+        path: `${basePath}/api/data`,
         options: {
           handler: async (request, h) => {
             try {

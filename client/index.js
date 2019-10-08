@@ -344,17 +344,22 @@ class Menu extends React.Component {
 }
 
 class App extends React.Component {
-  state = {}
-
+  state = {
+    basePath: ''
+  }
   componentWillMount () {
-    window.fetch('/api/data').then(res => res.json()).then(data => {
-      data.save = this.save
-      this.setState({ loaded: true, data })
+    let parent = window.parent
+    let basePath = parent.location.pathname.replace('/designer', '')
+    this.setState({ basePath: basePath }, () => {
+      window.fetch(`${this.state.basePath}/api/data`).then(res => res.json()).then(data => {
+        data.save = this.save
+        this.setState({ loaded: true, data })
+      })
     })
   }
 
   save = (updatedData) => {
-    return window.fetch(`/api/data`, {
+    return window.fetch(`${this.state.basePath}/api/data`, {
       method: 'put',
       body: JSON.stringify(updatedData)
     }).then(res => {
@@ -369,7 +374,7 @@ class App extends React.Component {
       // Reload frame if split screen and in playground mode
       if (window.DFBD.playgroundMode) {
         const parent = window.parent
-        if (parent.location.pathname === '/split') {
+        if (parent.location.pathname === `${this.state.basePath}/split`) {
           const frames = window.parent.frames
 
           if (frames.length === 2) {

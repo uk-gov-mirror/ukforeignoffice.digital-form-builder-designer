@@ -51,9 +51,10 @@ class Page extends React.Component {
     const { page, data } = this.props
     const { sections } = data
     const formComponents = page.components.filter(comp => componentTypes.find(type => type.name === comp.type).subType === 'field')
-    const pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
     const section = page.section && sections.find(section => section.name === page.section)
     const conditional = !!page.condition
+    let pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
+    pageTitle = typeof pageTitle === 'string' ? pageTitle : pageTitle.en
 
     return (
       <div id={page.path} className={`page${conditional ? ' conditional' : ''}`}

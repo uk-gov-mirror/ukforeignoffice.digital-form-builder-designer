@@ -15,8 +15,8 @@
   "author": "Department for Environment, Food and Rural Affairs <https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs>.",
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "digital-form-builder-engine": "0.1.4",
-    "joi": "14.0.2"
+    "joi": "14.0.2",
+    "digital-form-builder-engine": "file:../digital-form-builder-engine"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",

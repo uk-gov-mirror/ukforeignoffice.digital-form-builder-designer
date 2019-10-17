@@ -16,7 +16,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "joi": "14.0.2",
-    "digital-form-builder-engine": "file:../digital-form-builder-engine"
+    "digital-form-builder-engine": "cautionYourBlast/digital-form-builder-engine"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",

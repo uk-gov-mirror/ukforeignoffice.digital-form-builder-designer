@@ -12,7 +12,7 @@ module.exports = {
     dependencies: 'vision',
     multiple: true,
     register: (server, options) => {
-      const { path } = options
+      const { path, playgroundMode } = options
       let { basePath } = options
       let data = require(path)
 
@@ -23,7 +23,7 @@ module.exports = {
         method: 'get',
         path: `${basePath}/designer`,
         handler: (request, h) => {
-          return h.view('designer')
+          return h.view('designer', { playgroundMode: playgroundMode || false })
         }
       })
 

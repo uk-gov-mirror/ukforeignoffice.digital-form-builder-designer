@@ -191,7 +191,7 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data } = this.props
+    const { data, basePath } = this.props
     const { pages } = data
 
     return (
@@ -199,7 +199,7 @@ class Visualisation extends React.Component {
         { width: this.state.layout.width, height: this.state.layout.height }}>
         {pages.map((page, index) => <Page
           key={index} data={data} page={page}
-          layout={this.state.layout && this.state.layout.nodes[index]} />
+          layout={this.state.layout && this.state.layout.nodes[index]} basePath={basePath}/>
         )}
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} />}
@@ -238,7 +238,7 @@ class Menu extends React.Component {
   }
 
   render () {
-    const { data, playgroundMode } = this.props
+    const { data, playgroundMode, basePath } = this.props
 
     return (
       <div className='menu'>
@@ -265,7 +265,7 @@ class Menu extends React.Component {
 
           {playgroundMode && (
             <div className='govuk-!-margin-top-4'>
-              <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download href='/api/data?format=true'>Download JSON</a>{' '}
+              <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download href={`${basePath}/api/data?format=true`}>Download JSON</a>{' '}
               <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
               <input type='file' id='upload' hidden onChange={this.onFileUpload} />
             </div>
@@ -395,8 +395,8 @@ class App extends React.Component {
     if (this.state.loaded) {
       return (
         <div id='app'>
-          <Menu data={this.state.data} playgroundMode={window.DFBD.playgroundMode} />
-          <Visualisation data={this.state.data} />
+          <Menu data={this.state.data} basePath={this.state.basePath} playgroundMode={window.DFBD.playgroundMode} />
+          <Visualisation data={this.state.data} basePath={this.state.basePath} />
         </div>
       )
     } else {

@@ -55,7 +55,7 @@ class Page extends React.Component {
     const conditional = !!page.condition
     let pageTitle = page.title || (formComponents.length === 1 && page.components[0] === formComponents[0] ? formComponents[0].title : page.title)
     if (pageTitle && typeof pageTitle === 'object') {
-      pageTitle = pageTitle[0]
+      pageTitle = pageTitle.en
     }
     return (
       <div id={page.path} className={`page${conditional ? ' conditional' : ''}`}

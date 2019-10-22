@@ -10,6 +10,8 @@ import LinkCreate from './link-create'
 import ListsEdit from './lists-edit'
 import SectionsEdit from './sections-edit'
 import ConditionsEdit from './conditions-edit'
+import FeeEdit from './fee-edit'
+
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -261,6 +263,9 @@ class Menu extends React.Component {
             onClick={() => this.setState({ showEditLists: true })}>Edit Lists</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
+            onClick={() => this.setState({ showEditFee: true })}>Edit Fees</button>{' '}
+
+          <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showSummary: true })}>Summary</button>
 
           {playgroundMode && (
@@ -294,6 +299,11 @@ class Menu extends React.Component {
           <Flyout title='Edit Lists' show={this.state.showEditLists}
             onHide={() => this.setState({ showEditLists: false })} width='xlarge'>
             <ListsEdit data={data} onCreate={() => this.setState({ showEditLists: false })} />
+          </Flyout>
+
+          <Flyout title='Edit Fees' show={this.state.showEditFee}
+            onHide={() => this.setState({ showEditFee: false })} width='xlarge'>
+            <FeeEdit data={data} onCreate={() => this.setState({ showEditFee: false })} />
           </Flyout>
 
           <Flyout title='Summary' show={this.state.showSummary} width='large'

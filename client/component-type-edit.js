@@ -279,7 +279,30 @@ function ParaEdit (props) {
       <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
       {/* <textarea className='govuk-textarea' id='para-content' name='content'
         defaultValue={component.content} rows='10' required /> */}
-      <Editor name='content' value={component.content} />  
+      <Editor name='content' value={component.content} />
+    </div>
+  )
+}
+
+function FlashCardEdit (props) {
+  const { component, data } = props
+  const options = component.options || {}
+  const { lists } = data
+
+
+  return (
+    <div className='govuk-form-group'>
+      <label className='govuk-label' htmlFor='para-content'>List</label>
+      <div className='govuk-form-group'>
+        <label className='govuk-label govuk-label--s' htmlFor='field-options.list'>List</label>
+        <select className='govuk-select govuk-input--width-10' id='field-options.list' name='options.list'
+                defaultValue={options.list} required>
+          <option />
+          {lists.map(list => {
+            return <option key={list.name} value={list.name}>{list.title}</option>
+          })}
+        </select>
+      </div>
     </div>
   )
 }
@@ -321,7 +344,8 @@ const componentTypeEditors = {
   'ParaEdit': ParaEdit,
   'HtmlEdit': HtmlEdit,
   'InsetTextEdit': InsetTextEdit,
-  'DetailsEdit': DetailsEdit
+  'DetailsEdit': DetailsEdit,
+  'FlashCardEdit': FlashCardEdit
 }
 
 class ComponentTypeEdit extends React.Component {

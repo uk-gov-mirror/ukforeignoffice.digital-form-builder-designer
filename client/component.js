@@ -23,7 +23,8 @@ export const componentTypes = {
   'Para': Para,
   'Html': Html,
   'InsetText': InsetText,
-  'Details': Details
+  'Details': Details,
+  'FlashCard': FlashCard
 }
 
 function Base (props) {
@@ -219,6 +220,16 @@ function InsetText () {
 }
 
 function Para () {
+  return (
+    <Base>
+      <div className='line' />
+      <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
+      <div className='line' />
+    </Base>
+  )
+}
+
+function FlashCard () {
   return (
     <Base>
       <div className='line' />

@@ -1,6 +1,6 @@
 {
   "name": "digital-form-builder-designer",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "A hapi plugin providing a visual designer for digital form builder based applications",
   "main": "index.js",
   "scripts": {

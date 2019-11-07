@@ -20,6 +20,7 @@ export const componentTypes = {
   'SelectField': SelectField,
   'YesNoField': YesNoField,
   'UkAddressField': UkAddressField,
+  'FileUploadField': FileUploadField,
   'Para': Para,
   'Html': Html,
   'InsetText': InsetText,
@@ -199,10 +200,21 @@ function YesNoField () {
   )
 }
 
+function FileUploadField () {
+  return (
+    <ComponentField>
+      <div className='govuk-!-margin-bottom-1'>
+        {`🗂`} <span className='line short' />
+      </div>
+    </ComponentField>
+  )
+}
+
+
 function Details () {
   return (
     <Base>
-      {`▶ `}<span className='line details' />
+      {`▶ `}<span className='line short' />
     </Base>
   )
 }

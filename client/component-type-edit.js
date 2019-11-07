@@ -345,7 +345,8 @@ const componentTypeEditors = {
   'HtmlEdit': HtmlEdit,
   'InsetTextEdit': InsetTextEdit,
   'DetailsEdit': DetailsEdit,
-  'FlashCardEdit': FlashCardEdit
+  'FlashCardEdit': FlashCardEdit,
+  'FileUploadFieldEdit': TextFieldEdit
 }
 
 class ComponentTypeEdit extends React.Component {

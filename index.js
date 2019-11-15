@@ -22,8 +22,13 @@ module.exports = {
       server.route({
         method: 'get',
         path: `${basePath}/designer`,
-        handler: (request, h) => {
-          return h.view('designer', { playgroundMode: playgroundMode || false })
+        options: {
+          handler: (request, h) => {
+            return h.view('designer', { playgroundMode: playgroundMode || false })
+          },
+          plugins: {
+            blankie: false
+          }
         }
       })
 
@@ -31,8 +36,13 @@ module.exports = {
       server.route({
         method: 'get',
         path: `${basePath}/split`,
-        handler: (request, h) => {
-          return h.view('split')
+        options: {
+          handler: (request, h) => {
+            return h.view('split')
+          },
+          plugins: {
+            blankie: false
+          }
         }
       })
 
@@ -46,13 +56,15 @@ module.exports = {
               const json = JSON.stringify(data, null, 2)
               return h.response(json).type('application/json')
             }
-
             return data
           },
           validate: {
             query: {
               format: joi.boolean()
             }
+          },
+          plugins: {
+            blankie: false
           }
         }
       })
@@ -81,6 +93,9 @@ module.exports = {
           },
           validate: {
             payload: joi.object().required()
+          },
+          plugins: {
+            blankie: false
           }
         }
       })

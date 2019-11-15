@@ -27,7 +27,10 @@ module.exports = {
             return h.view('designer', { playgroundMode: playgroundMode || false })
           },
           plugins: {
-            blankie: false
+            blankie: false,
+            crumb: {
+              enforce: false
+            }
           }
         }
       })
@@ -41,7 +44,10 @@ module.exports = {
             return h.view('split')
           },
           plugins: {
-            blankie: false
+            blankie: false,
+            crumb: {
+              enforce: false
+            }
           }
         }
       })
@@ -64,7 +70,10 @@ module.exports = {
             }
           },
           plugins: {
-            blankie: false
+            blankie: false,
+            crumb: {
+              enforce: false
+            }
           }
         }
       })
@@ -95,7 +104,10 @@ module.exports = {
             payload: joi.object().required()
           },
           plugins: {
-            blankie: false
+            blankie: false,
+            crumb: {
+              enforce: false
+            }
           }
         }
       })

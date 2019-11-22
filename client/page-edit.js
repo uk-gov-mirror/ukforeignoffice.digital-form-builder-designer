@@ -101,6 +101,29 @@ class PageEdit extends React.Component {
       })
   }
 
+  onClickDuplicate = e => {
+    e.preventDefault()
+
+    const { data, page } = this.props
+    let copy = clone(data)
+    let duplicatedPage = clone(page)
+    let id =  Math.floor(100 + Math.random() * 900)
+    duplicatedPage.path = duplicatedPage.path + `- ${id}`
+    duplicatedPage.components.forEach(component => {
+      component.name = component.name + `- ${id}`
+    })
+    copy.pages.push(duplicatedPage)
+
+    data.save(copy)
+      .then(data => {
+        console.log(data)
+        // this.props.onEdit({ data })
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
   render () {
     const { data, page } = this.props
     const { sections } = data
@@ -150,6 +173,7 @@ class PageEdit extends React.Component {
         </div>
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
+        <button className='govuk-button' type='button' onClick={this.onClickDuplicate}>Duplicate</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>
       </form>
     )

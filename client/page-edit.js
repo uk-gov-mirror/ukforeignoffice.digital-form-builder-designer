@@ -108,16 +108,15 @@ class PageEdit extends React.Component {
     let copy = clone(data)
     let duplicatedPage = clone(page)
     let id =  Math.floor(100 + Math.random() * 900)
-    duplicatedPage.path = duplicatedPage.path + `- ${id}`
+    duplicatedPage.path = `${duplicatedPage.path}-${id}`
     duplicatedPage.components.forEach(component => {
-      component.name = component.name + `- ${id}`
+      component.name = `${duplicatedPage.path}-${id}`
     })
     copy.pages.push(duplicatedPage)
 
     data.save(copy)
       .then(data => {
         console.log(data)
-        // this.props.onEdit({ data })
       })
       .catch(err => {
         console.error(err)

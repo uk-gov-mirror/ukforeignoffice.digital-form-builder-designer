@@ -16,46 +16,74 @@ function Classes (props) {
     </div>
   )
 }
+class FieldEdit extends React.Component {
 
-function FieldEdit (props) {
-  const { component } = props
-  const options = component.options || {}
+  constructor(props) {
+    super(props)
+    const { component } = this.props
+    const options = component.options || {}
+    this.state = {
+      hidden: options.required !== false
+    }
+  }
 
-  return (
-    <div>
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
-        <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or fullName.</span>
-        <input className='govuk-input govuk-input--width-20' id='field-name'
-          name='name' type='text' defaultValue={component.name} required pattern='^\S+' />
-      </div>
+  checkOptionalBox() {
+    this.setState({hidden: !this.state.hidden})
+  }
 
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-title'>Title</label>
-        <span className='govuk-hint'>This is the title text displayed on the page</span>
-        <input className='govuk-input' id='field-title' name='title' type='text'
-          defaultValue={component.title} required />
-      </div>
 
-      <div className='govuk-form-group'>
-        <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Hint (optional)</label>
-        <span className='govuk-hint'>The hint can include HTML</span>
-        <textarea className='govuk-textarea' id='field-hint' name='hint'
-          defaultValue={component.hint} rows='2' />
-      </div>
+  render() {
+    const {component, data} = this.props
+    const options = component.options || {}
 
-      <div className='govuk-checkboxes govuk-form-group'>
-        <div className='govuk-checkboxes__item'>
-          <input className='govuk-checkboxes__input' id='field-options.required'
-            name='options.required' type='checkbox' defaultChecked={options.required === false} />
-          <label className='govuk-label govuk-checkboxes__label'
-            htmlFor='field-options.required'>Optional</label>
+      return (
+      <div>
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='field-name'>Name</label>
+          <span className='govuk-hint'>This is used as the key in the JSON output. Use `camelCasing` e.g. dateOfBirth or
+            fullName.</span>
+          <input className='govuk-input govuk-input--width-20' id='field-name'
+                 name='name' type='text' defaultValue={component.name} required pattern='^\S+'/>
         </div>
-      </div>
 
-      {props.children}
-    </div>
-  )
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='field-title'>Title</label>
+          <span className='govuk-hint'>This is the title text displayed on the page</span>
+          <input className='govuk-input' id='field-title' name='title' type='text'
+                 defaultValue={component.title} required/>
+        </div>
+
+        <div className='govuk-form-group'>
+          <label className='govuk-label govuk-label--s' htmlFor='field-hint'>Hint (optional)</label>
+          <span className='govuk-hint'>The hint can include HTML</span>
+          <textarea className='govuk-textarea' id='field-hint' name='hint'
+                    defaultValue={component.hint} rows='2'/>
+        </div>
+
+        <div className='govuk-checkboxes govuk-form-group'>
+          <div className='govuk-checkboxes__item'>
+            <input className='govuk-checkboxes__input' id='field-options.required'
+                   name='options.required' type='checkbox' defaultChecked={options.required === false}
+                   onChange={(e) => this.checkOptionalBox(e)}/>
+            <label className='govuk-label govuk-checkboxes__label'
+                   htmlFor='field-options.required'>Optional</label>
+          </div>
+        </div>
+
+        <div className={`govuk-checkboxes govuk-form-group`} hidden={this.state.hidden}>
+          <div className='govuk-checkboxes__item'>
+            <input className='govuk-checkboxes__input' id='field-options.optionalText'
+                   name='options.optionalText' type='checkbox' defaultChecked={options.optionalText === false}/>
+            <label className='govuk-label govuk-checkboxes__label'
+                   htmlFor='field-options.optionalText'>Hide '(Optional)' text</label>
+          </div>
+        </div>
+
+
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 function TextFieldEdit (props) {

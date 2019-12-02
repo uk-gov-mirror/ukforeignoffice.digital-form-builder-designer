@@ -42,7 +42,6 @@ class NotifyItems extends React.Component {
     const copy = clone(data)
 
     // Remove the list
-    copy.fees.splice(data.fees.indexOf(fee), 1)
 
     data.save(copy)
       .then(data => {

@@ -58,7 +58,7 @@ class NotifyEdit extends React.Component {
           <div className="govuk-form-group">
             <label className='govuk-label' htmlFor='email-field'>Email field</label>
             <select className='govuk-select' id='email-field' name='email-field' defaultValue={emailField} required>
-              {values.map((value, i)=> (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
+              {this.usableKeys.map((value, i)=> (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
             </select>
           </div>
 

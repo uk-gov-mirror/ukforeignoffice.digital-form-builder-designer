@@ -16,7 +16,6 @@ class ComponentEdit extends React.Component {
     // Apply
     const componentIndex = page.components.indexOf(component)
     copyPage.components[componentIndex] = formData
-
     data.save(copy)
       .then(data => {
         console.log(data)

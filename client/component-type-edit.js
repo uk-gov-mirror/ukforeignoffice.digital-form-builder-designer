@@ -299,15 +299,26 @@ function CheckboxesFieldEdit (props) {
 }
 
 function ParaEdit (props) {
-  const { component } = props
+  const { component, data } = props
+  const { conditions } = data
 
   return (
-    <div className='govuk-form-group'>
-      <label className='govuk-label' htmlFor='para-content'>Content</label>
-      <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
-      {/* <textarea className='govuk-textarea' id='para-content' name='content'
-        defaultValue={component.content} rows='10' required /> */}
-      <Editor name='content' value={component.content} />
+    <div>
+      <div className='govuk-form-group'>
+        <label className='govuk-label' htmlFor='para-content'>Content</label>
+        <span className='govuk-hint'>The content can include HTML and the `govuk-prose-scope` css class is available. Use this on a wrapping element to apply default govuk styles.</span>
+        {/* <textarea className='govuk-textarea' id='para-content' name='content'
+          defaultValue={component.content} rows='10' required /> */}
+        <Editor name='content' value={component.content} />
+      </div>
+      <div className='govuk-form-group'>
+        <label className='govuk-label' htmlFor='condition'>Condition (optional)</label>
+        <span className='govuk-hint'>Only show this content if the condition is truthy. </span>
+        <select className='govuk-select' id='condition' name='options.condition' defaultValue={component.options.condition}>
+          <option value=""/>
+          {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
+        </select>
+      </div>
     </div>
   )
 }

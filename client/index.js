@@ -406,7 +406,7 @@ class App extends React.Component {
       return data
     }).catch(err => {
       console.error(err)
-      window.alert('Save failed')
+      window.alert(`Save failed ${err}`)
     })
   }
 

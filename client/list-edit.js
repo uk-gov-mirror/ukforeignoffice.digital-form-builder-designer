@@ -46,10 +46,12 @@ class ListEdit extends React.Component {
     const texts = formData.getAll('text').map(t => t.trim())
     const values = formData.getAll('value').map(t => t.trim())
     const descriptions = formData.getAll('description').map(t => t.trim())
+    const conditions = formData.getAll('condition').map(t => t.trim())
     copyList.items = texts.map((t, i) => ({
       text: t,
       value: values[i],
-      description: descriptions[i]
+      description: descriptions[i],
+      condition: conditions[i]
     }))
 
     data.save(copy)
@@ -107,8 +109,8 @@ class ListEdit extends React.Component {
 
   render () {
     const state = this.state
-    const { list } = this.props
-
+    const { list, data } = this.props
+    const { conditions } = data
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
         <a className="govuk-back-link" href='#'
@@ -136,7 +138,7 @@ class ListEdit extends React.Component {
           </select>
         </div>
 
-        <ListItems items={list.items} type={state.type} />
+        <ListItems items={list.items} type={state.type} conditions={conditions} />
 
         <button className='govuk-button' type='submit'>Save</button>{' '}
         <button className='govuk-button' type='button' onClick={this.onClickDelete}>Delete</button>

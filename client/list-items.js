@@ -90,7 +90,7 @@ class ListItems extends React.Component {
 
   render () {
     const { items } = this.state
-    const { type } = this.props
+    const { type, conditions } = this.props
 
     return (
       <table className='govuk-table'>
@@ -100,6 +100,8 @@ class ListItems extends React.Component {
             <th className='govuk-table__header' scope='col'>Text</th>
             <th className='govuk-table__header' scope='col'>Value</th>
             <th className='govuk-table__header' scope='col'>Description</th>
+            <th className='govuk-table__header' scope='col'>Condition</th>
+
             <th className='govuk-table__header' scope='col'>
               <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
             </th>
@@ -131,6 +133,12 @@ class ListItems extends React.Component {
                 <input className='govuk-input' name='description'
                   type='text' defaultValue={item.description}
                   onBlur={this.onBlur} />
+              </td>
+              <td className='govuk-table__cell'>
+                <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition}>
+                  <option/>
+                  {conditions.map((condition, i)=> (<option key={condition.name + i} value={condition.name}>{condition.name}</option>))}
+                </select>
               </td>
               <td className='govuk-table__cell' width='20px'>
                 <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>

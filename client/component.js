@@ -25,7 +25,8 @@ export const componentTypes = {
   'Html': Html,
   'InsetText': InsetText,
   'Details': Details,
-  'FlashCard': FlashCard
+  'FlashCard': FlashCard,
+  'List': List
 }
 
 function Base (props) {
@@ -246,6 +247,16 @@ function FlashCard () {
     <Base>
       <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
       <div className='line' />
+    </Base>
+  )
+}
+
+function List () {
+  return (
+    <Base>
+      <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
+      <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
+      <div className='line short govuk-!-margin-bottom-2 govuk-!-margin-top-2' />
     </Base>
   )
 }

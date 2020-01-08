@@ -323,6 +323,37 @@ function ParaEdit (props) {
   )
 }
 
+function ListContentEdit (props) {
+  const { component, data } = props
+  const options = component.options || {}
+  const { lists } = data
+
+
+  return (
+    <div>
+      <div className='govuk-form-group'>
+        <label className='govuk-label govuk-label--s' htmlFor='field-options.list'>List</label>
+        <select className='govuk-select govuk-input--width-10' id='field-options.list' name='options.list'
+                defaultValue={options.list} required>
+          <option />
+          {lists.map(list => {
+            return <option key={list.name} value={list.name}>{list.title}</option>
+          })}
+        </select>
+      </div>
+      <div className='govuk-checkboxes govuk-form-group'>
+        <div className='govuk-checkboxes__item'>
+          <input className='govuk-checkboxes__input' id='options.type'
+                 name='options.type' value='numbered' type='checkbox' defaultChecked={options.type === 'numbered'} />
+          <label className='govuk-label govuk-checkboxes__label'
+                 htmlFor='field-options.type'>Numbered</label>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
 function FlashCardEdit (props) {
   const { component, data } = props
   const options = component.options || {}
@@ -385,7 +416,8 @@ const componentTypeEditors = {
   'InsetTextEdit': InsetTextEdit,
   'DetailsEdit': DetailsEdit,
   'FlashCardEdit': FlashCardEdit,
-  'FileUploadFieldEdit': TextFieldEdit
+  'FileUploadFieldEdit': TextFieldEdit,
+  'ListEdit': ListContentEdit
 }
 
 class ComponentTypeEdit extends React.Component {

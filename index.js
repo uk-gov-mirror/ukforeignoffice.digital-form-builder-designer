@@ -88,6 +88,7 @@ module.exports = {
               const result = joi.validate(request.payload, schema, { abortEarly: false })
 
               if (result.error) {
+                console.log(result.error)
                 throw new Error('Schema validation failed')
               }
 

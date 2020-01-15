@@ -22,7 +22,7 @@
 
   .visualisation {
     position: relative;
-  
+
     .page {
       position: absolute;
       width: 240px;
@@ -38,12 +38,12 @@
         height: 14px;
         cursor: pointer;
         background-color: #000;
-    
+
         &:hover {
           background-color: #ffbf47;
         }
       }
-    
+
       h3.govuk-heading-s {
         margin-bottom: 0;
       }
@@ -65,7 +65,7 @@
     right: 0;
     bottom: 0;
     position: fixed;
-    z-index: 999;
+    z-index: 998;
     background: lightgray;
     padding: 5px;
     max-width: 50%;
@@ -84,7 +84,7 @@
 }
 
 
-  
+
 .button {
   width: 30%;
   height: 24px;
@@ -165,7 +165,7 @@
     }
 
     &.dropdown {
-      &:after {    
+      &:after {
         content: "\25BC";
         float: right;
         margin-top: 2px;
@@ -174,7 +174,7 @@
     }
 
     &.email {
-      &:before {    
+      &:before {
         content: "@";
         font-size: small;
         padding-left: 2px;
@@ -182,7 +182,7 @@
     }
 
     &.tel {
-      &:before {    
+      &:before {
         content: "\260E";
         font-size: small;
         padding-left: 2px;
@@ -190,7 +190,7 @@
     }
 
     &.number {
-      &:after {    
+      &:after {
         content: "\21F3";
         float: right;
       }
@@ -301,7 +301,7 @@
     textarea {
       resize: vertical;
     }
-    
+
     .panel {
       display: flex;
       max-height: 100%;
@@ -322,23 +322,23 @@
     overflow-y: auto;
   }
 }
- 
+
 .flyout-menu.hide {
   transform: translate3d(-100vw, 0, 0);
 }
- 
+
 .flyout-menu.show {
   transform: translate3d(0vw, 0, 0);
   min-width: 100%;
   overflow: hidden;
 }
- 
+
 .flyout-menu h2 a {
   color: #333;
   margin-left: 15px;
   text-decoration: none;
 }
- 
+
 .flyout-menu h2 a:hover {
   text-decoration: underline;
 }
@@ -370,7 +370,7 @@
     padding: 2em;
     background: #ffffff;
     color: #333333;
-  
+
     form {
       button {
         margin-bottom: 0;
@@ -381,7 +381,7 @@
   header {
     font-weight: bold;
   }
-  
+
   .close {
     cursor: pointer;
     color: #aaa;
@@ -393,11 +393,11 @@
     width: 70px;
     text-decoration: none;
   }
-  
+
   > .close:hover {
     color: #000;
   }
-  
+
   h1 {
     font-size: 150%;
     margin: 0 0 15px;

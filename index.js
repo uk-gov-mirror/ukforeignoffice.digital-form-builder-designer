@@ -4,17 +4,113 @@ const util = require('util')
 const schema = require('digital-form-builder-engine/schema')
 const writeFile = util.promisify(fs.writeFile)
 const pkg = require('./package.json')
+const hapi = require('@hapi/hapi')
+const shortid = require('shortid')
 
-module.exports = {
+const nunjucks = require('nunjucks')
+
+const viewPlugin = {
+  plugin: require('vision'),
+  options: {
+    engines: {
+      html: {
+        compile: (src, options) => {
+          const template = nunjucks.compile(src, options.environment)
+
+          return (context) => {
+            if (context.nonce) {
+              delete Object.assign(context, { 'script_nonce': context['script-nonce'] })['script-nonce']
+              delete Object.assign(context, { 'style_nonce': context['style_nonce'] })['style_nonce']
+            }
+
+            const html = template.render(context /* , function (err, value) {
+              console.error(err)
+            } */)
+            return html
+          }
+        },
+        prepare: (options, next) => {
+          options.compileOptions.environment = nunjucks.configure(options.path, {
+            autoescape: true,
+            watch: false
+          })
+
+          return next()
+        }
+      }
+    },
+    path: [
+      'views',
+      'node_modules/govuk-frontend/',
+      'node_modules/govuk-frontend/components/',
+      'node_modules/digital-form-builder-engine/views',
+    ],
+    context: {
+      appVersion: pkg.version,
+      assetPath: '/assets',
+    }
+  }
+}
+
+
+
+const designerPlugin = {
   plugin: {
     name: pkg.name,
     version: pkg.version,
-    dependencies: 'vision',
     multiple: true,
+    dependencies: 'vision',
     register: (server, options) => {
       const { path, playgroundMode } = options
       let { basePath } = options
-      let data = require(path)
+      // let data = require(path)
+
+      server.route({
+        method: 'get',
+        path: `/`,
+        options: {
+          handler: (request, h) => {
+            return h.redirect(`/${shortid.generate()}`)
+          }
+        }
+      })
+
+      // DESIGNER
+      server.route({
+        method: 'get',
+        path: `/{id}`,
+        options: {
+          handler: (request, h) => {
+            return h.view('designer')
+          }
+        }
+      })
+
+      // GET DATA
+      server.route({
+        method: 'GET',
+        path: `/{id}/api/data`,
+        options: {
+          handler: (request, h) => {
+            if (request.query.format) {
+              const json = JSON.stringify(data, null, 2)
+              return h.response(json).type('application/json')
+            }
+            return require('./new-form')
+          },
+          validate: {
+            query: {
+              format: joi.boolean()
+            }
+          },
+          plugins: {
+            blankie: false,
+            crumb: {
+              enforce: false
+            }
+          }
+        }
+      })
 
       basePath = `/${basePath}` || ''
 
@@ -52,31 +148,31 @@ module.exports = {
         }
       })
 
-      // GET DATA
-      server.route({
-        method: 'GET',
-        path: `${basePath}/api/data`,
-        options: {
-          handler: (request, h) => {
-            if (request.query.format) {
-              const json = JSON.stringify(data, null, 2)
-              return h.response(json).type('application/json')
-            }
-            return data
-          },
-          validate: {
-            query: {
-              format: joi.boolean()
-            }
-          },
-          plugins: {
-            blankie: false,
-            crumb: {
-              enforce: false
-            }
-          }
-        }
-      })
+      // // GET DATA
+      // server.route({
+      //   method: 'GET',
+      //   path: `${basePath}/api/data`,
+      //   options: {
+      //     handler: (request, h) => {
+      //       if (request.query.format) {
+      //         const json = JSON.stringify(data, null, 2)
+      //         return h.response(json).type('application/json')
+      //       }
+      //       return data
+      //     },
+      //     validate: {
+      //       query: {
+      //         format: joi.boolean()
+      //       }
+      //     },
+      //     plugins: {
+      //       blankie: false,
+      //       crumb: {
+      //         enforce: false
+      //       }
+      //     }
+      //   }
+      // })
 
       // SAVE DATA
       server.route({
@@ -91,7 +187,7 @@ module.exports = {
                 console.log(result.error)
                 throw new Error('Schema validation failed')
               }
-
+              //post to builder/deploy instEad
               await writeFile(path, JSON.stringify(result.value, null, 2))
 
               data = result.value
@@ -115,3 +211,20 @@ module.exports = {
     }
   }
 }
+
+async function createServer () {
+  const server = hapi.server({ port: 3000 })
+  await server.register(require('inert'))
+  await server.register(viewPlugin)
+  await server.register(require('./plugins/router'))
+  await server.register(designerPlugin)
+  return server
+}
+
+createServer()
+  .then(server => server.start())
+  .then(() => process.send && process.send('online'))
+  .catch(err => {
+    console.log(err)
+    process.exit(1)
+  })

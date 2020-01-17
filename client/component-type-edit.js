@@ -300,6 +300,7 @@ function CheckboxesFieldEdit (props) {
 
 function ParaEdit (props) {
   const { component, data } = props
+  let componentCondition = component.options.condition || ''
   const { conditions } = data
 
   return (
@@ -314,7 +315,7 @@ function ParaEdit (props) {
       <div className='govuk-form-group'>
         <label className='govuk-label' htmlFor='condition'>Condition (optional)</label>
         <span className='govuk-hint'>Only show this content if the condition is truthy. </span>
-        <select className='govuk-select' id='condition' name='options.condition' defaultValue={component.options.condition}>
+        <select className='govuk-select' id='condition' name='options.condition' defaultValue={componentCondition}>
           <option value=""/>
           {conditions.map(condition => (<option key={condition.name} value={condition.name}>{condition.name}</option>))}
         </select>

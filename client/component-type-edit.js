@@ -300,7 +300,8 @@ function CheckboxesFieldEdit (props) {
 
 function ParaEdit (props) {
   const { component, data } = props
-  let componentCondition = component.options.condition || ''
+  let options = component.options || {}
+  let componentCondition = options.condition || ''
   const { conditions } = data
 
   return (

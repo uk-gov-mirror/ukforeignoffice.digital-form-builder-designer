@@ -2,10 +2,11 @@ const shortid = require('shortid')
 const schema = require('digital-form-builder-engine/schema')
 const Wreck = require('@hapi/wreck')
 const pkg = require('./../package.json')
+const config = require('./../config')
 const joi = require('joi')
 
 const publish = async function (id, configuration) {
-  return await Wreck.post('http://localhost:3009/publish', {
+  return await Wreck.post(`${config.previewUrl}/publish`, {
     payload: JSON.stringify({id, configuration})
   })
 };

@@ -18,6 +18,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "digital-form-builder-engine": "CautionYourBlast/digital-form-builder-engine",
+    "@hapi/wreck": "^17.0.0",
     "flat": "^5.0.0",
     "joi": "14.0.2"
   },

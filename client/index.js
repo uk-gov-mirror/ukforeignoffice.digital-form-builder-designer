@@ -194,7 +194,7 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data, basePath } = this.props
+    const { data, id } = this.props
     const { pages } = data
 
     return (
@@ -202,7 +202,7 @@ class Visualisation extends React.Component {
         { width: this.state.layout.width, height: this.state.layout.height }}>
         {pages.map((page, index) => <Page
           key={index} data={data} page={page}
-          layout={this.state.layout && this.state.layout.nodes[index]} basePath={basePath}/>
+          layout={this.state.layout && this.state.layout.nodes[index]} id={id}/>
         )}
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} />}
@@ -241,8 +241,9 @@ class Menu extends React.Component {
   }
 
   render () {
-    const { data, playgroundMode, basePath } = this.props
-
+    const { data, id } = this.props
+    const encodedData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+    const playgroundMode = true
     return (
       <div className='menu'>
         <button className={`govuk-button govuk-!-font-size-14${this.state.showMenu ? ' govuk-!-margin-right-2' : ''}`}
@@ -272,13 +273,12 @@ class Menu extends React.Component {
           <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showSummary: true })}>Summary</button>
 
-          {playgroundMode && (
-            <div className='govuk-!-margin-top-4'>
-              <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download href={`${basePath}/api/data?format=true`}>Download JSON</a>{' '}
-              <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
-              <input type='file' id='upload' hidden onChange={this.onFileUpload} />
-            </div>
-          )}
+          <div className='govuk-!-margin-top-4'>
+            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download={`${id}.json`} href={`data:${encodedData}`}>Download JSON</a>{' '}
+            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
+            <input type='file' id='upload' hidden onChange={this.onFileUpload} />
+          </div>
+
 
           <Flyout title='Add Page' show={this.state.showAddPage}
             onHide={() => this.setState({ showAddPage: false })}>
@@ -364,46 +364,36 @@ class Menu extends React.Component {
 
 class App extends React.Component {
   state = {
-    basePath: ''
+    id: ''
   }
   componentWillMount () {
-    let parent = window.parent
-    let basePath = parent.location.pathname.replace('/designer', '')
-    this.setState({ basePath: basePath }, () => {
-      window.fetch(`${this.state.basePath}/api/data`).then(res => res.json()).then(data => {
-        data.save = this.save
-        this.setState({ loaded: true, data })
+    if (!this.state.loaded) {
+      this.setState({id: window.id }, () => {
+        window.fetch(`${this.state.id}/api/data`).then(res => res.json()).then(data => {
+          data.save = this.save
+          this.setState({ loaded: true, data })
+        })
       })
-    })
+    }
   }
 
   save = (updatedData) => {
-    return window.fetch(`${this.state.basePath}/api/data`, {
+    return window.fetch(`${this.state.id}/api/data`, {
       method: 'put',
-      body: JSON.stringify(updatedData)
+      body: JSON.stringify(updatedData),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
     }).then(res => {
       if (!res.ok) {
         throw Error(res.statusText)
       }
       return res
-    }).then(res => res.json()).then(data => {
-      data.save = this.save
-      this.setState({ data })
+    }).then(() => {
+      updatedData.save = this.save
+      this.setState({ data: updatedData })
 
-      // Reload frame if split screen and in playground mode
-      if (window.DFBD.playgroundMode) {
-        const parent = window.parent
-        if (parent.location.pathname === `${this.state.basePath}/split`) {
-          const frames = window.parent.frames
-
-          if (frames.length === 2) {
-            const preview = window.parent.frames[1]
-            preview.location.reload()
-          }
-        }
-      }
-
-      return data
     }).catch(err => {
       console.error(err)
       window.alert(`Save failed ${err}`)
@@ -414,8 +404,8 @@ class App extends React.Component {
     if (this.state.loaded) {
       return (
         <div id='app'>
-          <Menu data={this.state.data} basePath={this.state.basePath} playgroundMode={window.DFBD.playgroundMode} />
-          <Visualisation data={this.state.data} basePath={this.state.basePath} />
+          <Menu data={this.state.data} id={this.state.id} />
+          <Visualisation data={this.state.data} id={this.state.id} />
         </div>
       )
     } else {

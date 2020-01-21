@@ -32,7 +32,7 @@ class Page extends React.Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { page, data, basePath } = this.props
+    const { page, data, id } = this.props
     const copy = clone(data)
     const copyPage = copy.pages.find(p => p.path === page.path)
     copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex)
@@ -48,7 +48,7 @@ class Page extends React.Component {
   }
 
   render () {
-    const { page, data, basePath } = this.props
+    const { page, data, id } = this.props
     const { sections } = data
     const formComponents = page.components.filter(comp => componentTypes.find(type => type.name === comp.type).subType === 'field')
     const section = page.section && sections.find(section => section.name === page.section)
@@ -74,7 +74,7 @@ class Page extends React.Component {
 
         <div className='govuk-!-padding-2'>
           <a className='preview pull-right govuk-body govuk-!-font-size-14'
-            href={basePath + page.path} target='preview'>Open</a>
+            href={id + page.path} target='preview'>Open</a>
           <div className='button active'
             onClick={e => this.setState({ showAddComponent: true })} />
         </div>

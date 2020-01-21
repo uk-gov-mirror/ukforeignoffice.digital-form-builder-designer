@@ -22,10 +22,9 @@
   </head>
   <body>
     <script>
-      {% if playgroundMode %}
-        window.DFBD = { playgroundMode: true }
-      {% else %}
-        window.DFBD = { playgroundMode: false }
+      {% if (id) %}
+          window.id = '{{ id }}'
+          window.playgroundMode = true
       {% endif %}
     </script>
     <div id="root"></div>

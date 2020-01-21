@@ -20,18 +20,25 @@ const routes = [].concat(
     path: '/assets/designer.js',
     options: {
       handler: {
-        file: './../dist/designer.js'
+        file: './dist/designer.js'
       }
     }
   }, {
+    method: 'GET',
+    path: '/assets/stylesheets/application.css',
+    options: {
+      handler: {
+        file: './assets/application.css'
+      }
+    }
+  },
+    {
     method: 'GET',
     path: '/assets/{path*}',
     options: {
       handler: {
         directory: {
           path: [
-            'server/public/static',
-            'server/public/build',
             'node_modules/govuk-frontend/assets',
             'node_modules/hmpo-components/assets'
           ]

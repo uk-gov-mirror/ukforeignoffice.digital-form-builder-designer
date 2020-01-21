@@ -125,6 +125,19 @@ class Lines extends React.Component {
   }
 }
 
+class SaveNotification extends React.Component {
+
+  render () {
+    const { updatedAt, downloadedAt } = this.props
+    return (
+      <div className='notification' style={{position: 'fixed', bottom: 0}}>
+        <p className='govuk-body'>last downloaded at {downloadedAt}</p>
+        <p className='govuk-body'>last updated at {updatedAt}</p>
+      </div>
+    )
+  }
+}
+
 class Minimap extends React.Component {
   state = {}
 
@@ -194,7 +207,7 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data, id } = this.props
+    const { data, id, updatedAt, downloadedAt } = this.props
     const { pages } = data
 
     return (
@@ -206,6 +219,9 @@ class Visualisation extends React.Component {
         )}
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} />}
+
+        {this.state.layout &&
+        <SaveNotification layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} />}
 
         {this.state.layout &&
           <Minimap layout={this.state.layout} data={data} />}
@@ -235,6 +251,20 @@ class Menu extends React.Component {
     }
   }
 
+  onClickDownload = (e) => {
+    let { updateDownloadedAt, data, id } = this.props
+    e.preventDefault()
+    const encodedData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
+    updateDownloadedAt((new Date()).toLocaleTimeString())
+    const link = document.createElement('a')
+    link.download = `${id}.json`
+    link.href = `data:${encodedData}`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+
+  }
+
   setTab (e, name) {
     e.preventDefault()
     this.setState({ tab: name })
@@ -242,8 +272,6 @@ class Menu extends React.Component {
 
   render () {
     const { data, id } = this.props
-    const encodedData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
-    const playgroundMode = true
     return (
       <div className='menu'>
         <button className={`govuk-button govuk-!-font-size-14${this.state.showMenu ? ' govuk-!-margin-right-2' : ''}`}
@@ -274,7 +302,9 @@ class Menu extends React.Component {
             onClick={() => this.setState({ showSummary: true })}>Summary</button>
 
           <div className='govuk-!-margin-top-4'>
-            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' download={`${id}.json`} href={`data:${encodedData}`}>Download JSON</a>{' '}
+            <a className='govuk-link govuk-!-font-size-16'
+               onClick={this.onClickDownload} href="#">
+              Download JSON</a>{' '}
             <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
             <input type='file' id='upload' hidden onChange={this.onFileUpload} />
           </div>
@@ -392,7 +422,7 @@ class App extends React.Component {
       return res
     }).then(() => {
       updatedData.save = this.save
-      this.setState({ data: updatedData })
+      this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
 
     }).catch(err => {
       console.error(err)
@@ -400,12 +430,16 @@ class App extends React.Component {
     })
   }
 
+  updateDownloadedAt = (time) => {
+    this.setState({downloadedAt: time})
+  }
+
   render () {
     if (this.state.loaded) {
       return (
         <div id='app'>
-          <Menu data={this.state.data} id={this.state.id} />
-          <Visualisation data={this.state.data} id={this.state.id} />
+          <Menu data={this.state.data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} />
+          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={this.state.id} />
         </div>
       )
     } else {

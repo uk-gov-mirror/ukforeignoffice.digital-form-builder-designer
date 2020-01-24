@@ -206,7 +206,7 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data, id, updatedAt, downloadedAt, preivewUrl } = this.props
+    const { data, id, updatedAt, downloadedAt, previewUrl } = this.props
     const { pages } = data
 
     return (

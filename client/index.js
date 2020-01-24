@@ -12,7 +12,7 @@ import SectionsEdit from './sections-edit'
 import ConditionsEdit from './conditions-edit'
 import FeeEdit from './fee-edit'
 import NotifyEdit from './notify-edit'
-import DeclarationEdit from './declaration-edit'
+
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -126,10 +126,11 @@ class Lines extends React.Component {
 }
 
 class SaveNotification extends React.Component {
+
   render () {
     const { updatedAt, downloadedAt } = this.props
     return (
-      <div className='notification' style={{ position: 'fixed', bottom: 0 }}>
+      <div className='notification' style={{position: 'fixed', bottom: 0}}>
         <p className='govuk-body'>last downloaded at {downloadedAt}</p>
         <p className='govuk-body'>last updated at {updatedAt}</p>
       </div>
@@ -206,15 +207,15 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data, id, updatedAt, downloadedAt } = this.props
+    const { data, id, updatedAt, downloadedAt, preivewUrl } = this.props
     const { pages } = data
 
     return (
       <div ref={this.ref} className='visualisation' style={this.state.layout &&
         { width: this.state.layout.width, height: this.state.layout.height }}>
         {pages.map((page, index) => <Page
-          key={index} data={data} page={page}
-          layout={this.state.layout && this.state.layout.nodes[index]} id={id} />
+          key={index} data={data} page={page} id={id} previewUrl={previewUrl}
+          layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} />}
@@ -253,7 +254,7 @@ class Menu extends React.Component {
   onClickDownload = (e) => {
     let { updateDownloadedAt, data, id } = this.props
     e.preventDefault()
-    const encodedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data))
+    const encodedData = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data))
     updateDownloadedAt((new Date()).toLocaleTimeString())
     const link = document.createElement('a')
     link.download = `${id}.json`
@@ -261,6 +262,7 @@ class Menu extends React.Component {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
+
   }
 
   setTab (e, name) {
@@ -268,71 +270,45 @@ class Menu extends React.Component {
     this.setState({ tab: name })
   }
 
-  toggleShowState = (key) => {
-    let currentState = this.state[key]
-    this.setState({ [key]: !currentState })
-  }
-
   render () {
     const { data, id } = this.props
     return (
       <div className='menu'>
         <button className={`govuk-button govuk-!-font-size-14${this.state.showMenu ? ' govuk-!-margin-right-2' : ''}`}
-          onClick={() => this.setState({ showMenu: !this.state.showMenu })}>☰
-        </button>
+          onClick={() => this.setState({ showMenu: !this.state.showMenu })}>☰</button>
         {this.state.showMenu && <span className='menu-inner'>
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showAddPage: true })}>Add Page
-          </button>
-          {' '}
+            onClick={() => this.setState({ showAddPage: true })}>Add Page</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showAddLink: true })}>Add Link
-          </button>
-          {' '}
+            onClick={() => this.setState({ showAddLink: true })}>Add Link</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditSections: true })}>Edit Sections
-          </button>
-          {' '}
+            onClick={() => this.setState({ showEditSections: true })}>Edit Sections</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditConditions: true })}>Edit Conditions
-          </button>
-          {' '}
+            onClick={() => this.setState({ showEditConditions: true })}>Edit Conditions</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditLists: true })}>Edit Lists
-          </button>
-          {' '}
+            onClick={() => this.setState({ showEditLists: true })}>Edit Lists</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditFee: true })}>Edit Fees
-          </button>
-          {' '}
+            onClick={() => this.setState({ showEditFee: true })}>Edit Fees</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditNotify: true })}>Edit Notify
-          </button>
-          {' '}
+                  onClick={() => this.setState({ showEditNotify: true })}>Edit Notify</button>{' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditDeclaration: true })}>Edit Declaration
-          </button>
-          {' '}
-
-          <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showSummary: true })}>Summary
-          </button>
+            onClick={() => this.setState({ showSummary: true })}>Summary</button>
 
           <div className='govuk-!-margin-top-4'>
             <a className='govuk-link govuk-!-font-size-16'
-              onClick={this.onClickDownload} href='#'>
+               onClick={this.onClickDownload} href="#">
               Download JSON</a>{' '}
-            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#'
-              onClick={this.onClickUpload}>Upload JSON</a>{' '}
+            <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#' onClick={this.onClickUpload}>Upload JSON</a>{' '}
             <input type='file' id='upload' hidden onChange={this.onFileUpload} />
           </div>
+
 
           <Flyout title='Add Page' show={this.state.showAddPage}
             onHide={() => this.setState({ showAddPage: false })}>
@@ -365,13 +341,8 @@ class Menu extends React.Component {
           </Flyout>
 
           <Flyout title='Edit Notify' show={this.state.showEditNotify}
-            onHide={() => this.setState({ showEditNotify: false })} width='xlarge'>
+                  onHide={() => this.setState({ showEditNotify: false })} width='xlarge'>
             <NotifyEdit data={data} onCreate={() => this.setState({ showEditNotify: false })} />
-          </Flyout>
-
-          <Flyout title='Edit Declaration' show={this.state.showEditDeclaration}
-            onHide={() => this.setState({ showEditDeclaration: false })} width='xlarge'>
-            <DeclarationEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditDeclaration: false })} />
           </Flyout>
 
           <Flyout title='Summary' show={this.state.showSummary} width='large'
@@ -397,19 +368,19 @@ class Menu extends React.Component {
                   </li>
                 </ul>
                 {this.state.tab === 'model' &&
-                <section className='govuk-tabs__panel'>
-                  <DataModel data={data} />
-                </section>
+                  <section className='govuk-tabs__panel'>
+                    <DataModel data={data} />
+                  </section>
                 }
                 {this.state.tab === 'json' &&
-                <section className='govuk-tabs__panel'>
-                  <pre>{JSON.stringify(data, null, 2)}</pre>
-                </section>
+                  <section className='govuk-tabs__panel'>
+                    <pre>{JSON.stringify(data, null, 2)}</pre>
+                  </section>
                 }
                 {this.state.tab === 'summary' &&
-                <section className='govuk-tabs__panel'>
-                  <pre>{JSON.stringify(data.pages.map(page => page.path), null, 2)}</pre>
-                </section>
+                  <section className='govuk-tabs__panel'>
+                    <pre>{JSON.stringify(data.pages.map(page => page.path), null, 2)}</pre>
+                  </section>
                 }
               </div>
             </div>
@@ -443,7 +414,7 @@ class App extends React.Component {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
     }).then(res => {
       if (!res.ok) {
         throw Error(res.statusText)
@@ -452,6 +423,7 @@ class App extends React.Component {
     }).then(() => {
       updatedData.save = this.save
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
+
     }).catch(err => {
       console.error(err)
       window.alert(`Save failed ${err}`)
@@ -459,15 +431,16 @@ class App extends React.Component {
   }
 
   updateDownloadedAt = (time) => {
-    this.setState({ downloadedAt: time })
+    this.setState({downloadedAt: time})
   }
 
   render () {
+    let { previewUrl, id } = this.state
     if (this.state.loaded) {
       return (
         <div id='app'>
           <Menu data={this.state.data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} />
-          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={this.state.id} />
+          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={id} previewUrl={previewUrl} />
         </div>
       )
     } else {

@@ -37,7 +37,7 @@ const designerPlugin = {
         options: {
           handler: (request, h) => {
             let { id } = request.params
-            return h.view('designer', { id })
+            return h.view('designer', { id, previewUrl: config.previewUrl })
           }
         }
       })

@@ -206,15 +206,15 @@ class Visualisation extends React.Component {
   }
 
   render () {
-    const { data, id, updatedAt, downloadedAt } = this.props
+    const { data, id, updatedAt, downloadedAt, preivewUrl } = this.props
     const { pages } = data
 
     return (
       <div ref={this.ref} className='visualisation' style={this.state.layout &&
         { width: this.state.layout.width, height: this.state.layout.height }}>
         {pages.map((page, index) => <Page
-          key={index} data={data} page={page}
-          layout={this.state.layout && this.state.layout.nodes[index]} id={id} />
+          key={index} data={data} page={page} id={id} previewUrl={previewUrl}
+          layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
         {this.state.layout &&
           <Lines layout={this.state.layout} data={data} />}
@@ -463,11 +463,12 @@ class App extends React.Component {
   }
 
   render () {
+    let { previewUrl, id } = this.state
     if (this.state.loaded) {
       return (
         <div id='app'>
           <Menu data={this.state.data} id={this.state.id} updateDownloadedAt={this.updateDownloadedAt} />
-          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={this.state.id} />
+          <Visualisation data={this.state.data} downloadedAt={this.state.downloadedAt} updatedAt={this.state.updatedAt} id={id} previewUrl={previewUrl} />
         </div>
       )
     } else {

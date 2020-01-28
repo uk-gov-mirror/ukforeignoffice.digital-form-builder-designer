@@ -323,7 +323,7 @@ class Menu extends React.Component {
           {' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-                  onClick={() => this.setState({ showEditFormName: true })}>Edit form name
+            onClick={() => this.setState({ showEditFormName: true })}>Edit form name
           </button>
           {' '}
 
@@ -381,7 +381,7 @@ class Menu extends React.Component {
           </Flyout>
 
           <Flyout title='Edit form name' show={this.state.showEditFormName}
-                  onHide={() => this.setState({ showEditFormName: false })} width='xlarge'>
+            onHide={() => this.setState({ showEditFormName: false })} width='xlarge'>
             <FormNameEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditFormName: false })} />
           </Flyout>
 

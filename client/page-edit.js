@@ -107,7 +107,7 @@ class PageEdit extends React.Component {
     const { data, page } = this.props
     let copy = clone(data)
     let duplicatedPage = clone(page)
-    let id =  Math.floor(100 + Math.random() * 900)
+    let id = Math.floor(100 + Math.random() * 900)
     duplicatedPage.path = `${duplicatedPage.path}-${id}`
     duplicatedPage.components.forEach(component => {
       component.name = `${duplicatedPage.path}-${id}`

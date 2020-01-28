@@ -1,5 +1,4 @@
 import React from 'react'
-import Editor from './editor'
 import { clone } from './helpers'
 
 class LinkCreate extends React.Component {
@@ -69,7 +68,7 @@ class LinkCreate extends React.Component {
           </span>
           <Editor name='if' /> */}
 
-          {/* <input className='govuk-input' id='link-condition' name='if'
+        {/* <input className='govuk-input' id='link-condition' name='if'
             type='text' aria-describedby='link-condition-hint' /> */}
         {/* </div> */}
 

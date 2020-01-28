@@ -211,7 +211,6 @@ function FileUploadField () {
   )
 }
 
-
 function Details () {
   return (
     <Base>

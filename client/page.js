@@ -32,7 +32,7 @@ class Page extends React.Component {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const { page, data} = this.props
+    const { page, data } = this.props
     const copy = clone(data)
     const copyPage = copy.pages.find(p => p.path === page.path)
     copyPage.components = arrayMove(copyPage.components, oldIndex, newIndex)

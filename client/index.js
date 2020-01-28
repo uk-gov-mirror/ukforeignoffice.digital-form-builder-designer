@@ -274,7 +274,7 @@ class Menu extends React.Component {
   }
 
   render () {
-    const { data, id } = this.props
+    const { data } = this.props
     return (
       <div className='menu'>
         <button className={`govuk-button govuk-!-font-size-14${this.state.showMenu ? ' govuk-!-margin-right-2' : ''}`}

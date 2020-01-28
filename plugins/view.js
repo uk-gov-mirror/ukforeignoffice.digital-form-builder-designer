@@ -35,11 +35,11 @@ const viewPlugin = {
       'views',
       'node_modules/govuk-frontend/',
       'node_modules/govuk-frontend/components/',
-      'node_modules/digital-form-builder-engine/views',
+      'node_modules/digital-form-builder-engine/views'
     ],
     context: {
       appVersion: pkg.version,
-      assetPath: '/assets',
+      assetPath: '/assets'
     }
   }
 }

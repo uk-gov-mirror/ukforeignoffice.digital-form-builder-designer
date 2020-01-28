@@ -12,7 +12,7 @@ function headDuplicate (arr) {
 }
 
 class NotifyItems extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       items: props.items ? clone(props.items) : []
@@ -21,7 +21,7 @@ class NotifyItems extends React.Component {
 
   onClickAddItem = e => {
     this.setState({
-      items: this.state.items.concat({description: '', amount: 0, condition: ''})
+      items: this.state.items.concat({ description: '', amount: 0, condition: '' })
     })
   }
 
@@ -38,14 +38,14 @@ class NotifyItems extends React.Component {
       return
     }
 
-    const { data, items } = this.props
+    const { data } = this.props
     const copy = clone(data)
 
     // Remove the list
 
     data.save(copy)
       .then(data => {
-        this.props.onEdit({data})
+        this.props.onEdit({ data })
       })
       .catch(err => {
         console.error(err)
@@ -61,7 +61,7 @@ class NotifyItems extends React.Component {
     if (personalisation.length < 2) {
       return
     }
-    console.log("form elements", form.elements)
+    console.log('form elements', form.elements)
     form.elements.personalisation.forEach(el => el.setCustomValidity(''))
 
     // Validate uniqueness
@@ -71,7 +71,7 @@ class NotifyItems extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const { items } = this.state
     const { values } = this.props
 
@@ -79,31 +79,31 @@ class NotifyItems extends React.Component {
       <table className='govuk-table'>
         <caption className='govuk-table__caption'>
           Notify personalisations
-          <span className="govuk-hint">
+          <span className='govuk-hint'>
             These values must match the personalisations in the GOV.UK Notify template.
           </span>
         </caption>
         <thead className='govuk-table__head'>
-        <tr className='govuk-table__row'>
-          <th className='govuk-table__header' scope='col'>Description</th>
-          <th className='govuk-table__header' scope='col'>
-            <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
-          </th>
-        </tr>
+          <tr className='govuk-table__row'>
+            <th className='govuk-table__header' scope='col'>Description</th>
+            <th className='govuk-table__header' scope='col'>
+              <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
+            </th>
+          </tr>
         </thead>
         <tbody className='govuk-table__body'>
-        {items.map((item, index) => (
-          <tr key={item + index} className='govuk-table__row' scope='row'>
-            <td className='govuk-table__cell'>
-              <select className='govuk-select' id='link-source' name='personalisation' defaultValue={item} required>
-                {values.map((value, i)=> (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
-              </select>
-            </td>
-            <td className='govuk-table__cell' width='20px'>
-              <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
-            </td>
-          </tr>
-        ))}
+          {items.map((item, index) => (
+            <tr key={item + index} className='govuk-table__row' scope='row'>
+              <td className='govuk-table__cell'>
+                <select className='govuk-select' id='link-source' name='personalisation' defaultValue={item} required>
+                  {values.map((value, i) => (<option key={value + i} value={value} onBlur={this.onBlur}>{value}</option>))}
+                </select>
+              </td>
+              <td className='govuk-table__cell' width='20px'>
+                <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     )

@@ -1,5 +1,4 @@
 import React from 'react'
-import Editor from './editor'
 import { clone } from './helpers'
 
 class LinkEdit extends React.Component {
@@ -70,7 +69,6 @@ class LinkEdit extends React.Component {
   }
 
   render () {
-    const { link } = this.state
     const { data, edge } = this.props
     const { pages } = data
 
@@ -99,7 +97,7 @@ class LinkEdit extends React.Component {
           </span>
 
           <Editor name='if' value={link.if} /> */}
-          {/* <input className='govuk-input' id='link-condition' name='if'
+        {/* <input className='govuk-input' id='link-condition' name='if'
             type='text' defaultValue={link.if} aria-describedby='link-condition-hint' /> */}
         {/* </div> */}
 

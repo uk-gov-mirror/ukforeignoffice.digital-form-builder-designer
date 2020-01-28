@@ -6,11 +6,10 @@ const config = require('./../config')
 const joi = require('joi')
 
 const publish = async function (id, configuration) {
-  return await Wreck.post(`${config.previewUrl}/publish`, {
-    payload: JSON.stringify({id, configuration})
+  return Wreck.post(`${config.previewUrl}/publish`, {
+    payload: JSON.stringify({ id, configuration })
   })
-};
-
+}
 
 const designerPlugin = {
   plugin: {
@@ -19,7 +18,6 @@ const designerPlugin = {
     multiple: true,
     dependencies: 'vision',
     register: (server) => {
-
       server.route({
         method: 'get',
         path: `/`,
@@ -49,7 +47,7 @@ const designerPlugin = {
         options: {
           handler: (request, h) => {
             return h.response(require('./../new-form')).type('application/json')
-          },
+          }
         }
       })
 
@@ -66,18 +64,16 @@ const designerPlugin = {
               if (result.error) {
                 console.log(result.error)
                 throw new Error('Schema validation failed')
-
               }
               await publish(id, result.value)
-              return h.response({ok: true}).code(204)
-
+              return h.response({ ok: true }).code(204)
             } catch (err) {
               return h.response({ ok: false, err: 'Write file failed' }).code(401)
             }
           },
           validate: {
             payload: joi.object().required()
-          },
+          }
         }
       })
     }

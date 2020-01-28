@@ -5,7 +5,6 @@ import Editor from './editor'
 class DeclarationEdit extends React.Component {
   constructor (props) {
     super(props)
-    let { data } = this.props
     this.onSubmit = this.onSubmit.bind(this)
   }
 

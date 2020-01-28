@@ -1,11 +1,8 @@
-import {clone} from "./helpers"
-import FeeItems from "./fee-items"
+import { clone } from './helpers'
+import FeeItems from './fee-items'
+import React from 'react'
 
 class FeeEdit extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-
   onSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -47,7 +44,6 @@ class FeeEdit extends React.Component {
 
     copy.fees.splice(data.fees.indexOf(fee), 1)
 
-
     data.save(copy)
       .then(data => {
         console.log(data)
@@ -65,8 +61,8 @@ class FeeEdit extends React.Component {
     return (
       <div className='govuk-body'>
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-          <a className="govuk-back-link" href='#'
-             onClick={e => this.props.onCancel(e)}>Back</a>
+          <a className='govuk-back-link' href='#'
+            onClick={e => this.props.onCancel(e)}>Back</a>
 
           <FeeItems items={fees} conditions={conditions} />
 

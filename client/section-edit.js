@@ -87,7 +87,7 @@ class SectionEdit extends React.Component {
 
     return (
       <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-        <a className="govuk-back-link" href='#'
+        <a className='govuk-back-link' href='#'
           onClick={e => this.props.onCancel(e)}>Back</a>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='section-name'>Name</label>

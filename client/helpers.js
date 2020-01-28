@@ -32,7 +32,7 @@ export function getFormData (form) {
       if (key.startsWith(optionsPrefix)) {
         if (key === `${optionsPrefix}required` && value === 'on') {
           data.options.required = false
-        } else if ( key === `${optionsPrefix}optionalText` && value === 'on') {
+        } else if (key === `${optionsPrefix}optionalText` && value === 'on') {
           data.options.optionalText = false
         } else {
           data.options[key.substr(optionsPrefix.length)] = cast(key, value)

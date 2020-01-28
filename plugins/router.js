@@ -32,7 +32,7 @@ const routes = [].concat(
       }
     }
   },
-    {
+  {
     method: 'GET',
     path: '/assets/{path*}',
     options: {

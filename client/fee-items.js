@@ -12,7 +12,7 @@ function headDuplicate (arr) {
 }
 
 class FeeItems extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       items: props.items ? clone(props.items) : []
@@ -21,7 +21,7 @@ class FeeItems extends React.Component {
 
   onClickAddItem = e => {
     this.setState({
-      items: this.state.items.concat({description: '', amount: 0, condition: ''})
+      items: this.state.items.concat({ description: '', amount: 0, condition: '' })
     })
   }
 
@@ -38,17 +38,16 @@ class FeeItems extends React.Component {
       return
     }
 
-    const {data, fee} = this.props
+    const { data, fee } = this.props
     const copy = clone(data)
 
     // Remove the list
     copy.fees.splice(data.fees.indexOf(fee), 1)
 
-
     data.save(copy)
       .then(data => {
         console.log(data)
-        this.props.onEdit({data})
+        this.props.onEdit({ data })
       })
       .catch(err => {
         console.error(err)
@@ -75,7 +74,7 @@ class FeeItems extends React.Component {
     }
   }
 
-  render() {
+  render () {
     const { items } = this.state
     const { conditions } = this.props
 
@@ -83,38 +82,38 @@ class FeeItems extends React.Component {
       <table className='govuk-table'>
         <caption className='govuk-table__caption'>Items</caption>
         <thead className='govuk-table__head'>
-        <tr className='govuk-table__row'>
-          <th className='govuk-table__header' scope='col'>Description</th>
-          <th className='govuk-table__header' scope='col'>Cost</th>
-          <th className='govuk-table__header' scope='col'>Condition</th>
-          <th className='govuk-table__header' scope='col'>
-            <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
-          </th>
-        </tr>
+          <tr className='govuk-table__row'>
+            <th className='govuk-table__header' scope='col'>Description</th>
+            <th className='govuk-table__header' scope='col'>Cost</th>
+            <th className='govuk-table__header' scope='col'>Condition</th>
+            <th className='govuk-table__header' scope='col'>
+              <a className='pull-right' href='#' onClick={this.onClickAddItem}>Add</a>
+            </th>
+          </tr>
         </thead>
         <tbody className='govuk-table__body'>
-        {items.map((item, index) => (
-          <tr key={item.description + index} className='govuk-table__row' scope='row'>
-            <td className='govuk-table__cell'>
-              <input className='govuk-input' name='description'
-                     type='text' required defaultValue={item.description}
-                     onBlur={this.onBlur}/>
-            </td>
-            <td className='govuk-table__cell'>
-              <input className='govuk-input' name='amount'
-                     type='number' required defaultValue={item.amount}
-                     onBlur={this.onBlur} step='any'/>
-            </td>
-            <td className='govuk-table__cell'>
-              <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition} required>
-                {conditions.map((condition, i)=> (<option key={condition.name + i} value={condition.name} onBlur={this.onBlur}>{condition.name}</option>))}
-              </select>
-            </td>
-            <td className='govuk-table__cell' width='20px'>
-              <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
-            </td>
-          </tr>
-        ))}
+          {items.map((item, index) => (
+            <tr key={item.description + index} className='govuk-table__row' scope='row'>
+              <td className='govuk-table__cell'>
+                <input className='govuk-input' name='description'
+                  type='text' required defaultValue={item.description}
+                  onBlur={this.onBlur} />
+              </td>
+              <td className='govuk-table__cell'>
+                <input className='govuk-input' name='amount'
+                  type='number' required defaultValue={item.amount}
+                  onBlur={this.onBlur} step='any' />
+              </td>
+              <td className='govuk-table__cell'>
+                <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition} required>
+                  {conditions.map((condition, i) => (<option key={condition.name + i} value={condition.name} onBlur={this.onBlur}>{condition.name}</option>))}
+                </select>
+              </td>
+              <td className='govuk-table__cell' width='20px'>
+                <a className='list-item-delete' onClick={() => this.removeItem(index)}>&#128465;</a>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     )

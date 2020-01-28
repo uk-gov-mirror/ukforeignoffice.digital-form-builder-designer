@@ -8,6 +8,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "dev": "node index.js",
+    "start": "node index.js",
     "symlink-env": "./bin/symlink-config"
   },
   "repository": {

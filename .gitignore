@@ -9,3 +9,4 @@ server/views/template.njk
 server/views/components
 server/public/build
 .env
+dist

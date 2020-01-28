@@ -74,7 +74,7 @@ class Page extends React.Component {
 
         <div className='govuk-!-padding-2'>
           <a className='preview pull-right govuk-body govuk-!-font-size-14'
-            href={`${previewUrl}/${id}${page.path}`} target='preview'>Open</a>
+            href={`${previewUrl}/${id}${page.path}`} target='_blank'>Open</a>
           <div className='button active'
             onClick={e => this.setState({ showAddComponent: true })} />
         </div>

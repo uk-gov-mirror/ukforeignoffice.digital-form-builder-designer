@@ -427,7 +427,7 @@ class App extends React.Component {
   }
   componentWillMount () {
     if (!this.state.loaded) {
-      this.setState({ id: window.id }, () => {
+      this.setState({ id: window.id, previewUrl: window.previewUrl }, () => {
         window.fetch(`${this.state.id}/api/data`).then(res => res.json()).then(data => {
           data.save = this.save
           this.setState({ loaded: true, data })

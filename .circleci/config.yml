@@ -1,0 +1,85 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/openjdk:8-jdk
+
+jobs:
+  build:
+    <<: *defaults
+    docker:
+      - image: circleci/node:10.16-browsers
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn lint
+        -
+      - run: yarn build
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  publish:
+    <<: *defaults
+
+    docker:
+      - image: circleci/python:2.7-jessie
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: .
+
+      - setup_remote_docker
+
+      - run:
+          name: Checkout CI Support
+          command: curl https://gist.githubusercontent.com/superafroman/ca7422b3c925dfeba5854edcc1713d89/raw/77febaa0954dfa8ebc6598b1366b7f1f8e38d610/docker-publish.sh -O && chmod +x docker-publish.sh
+
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+
+      - run:
+          name: Publish docker image
+          command: ./docker-publish.sh eu-west-1 545108028694.dkr.ecr.eu-west-1.amazonaws.com fco digital-forms-designer
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - tag.txt
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only:
+#                - master

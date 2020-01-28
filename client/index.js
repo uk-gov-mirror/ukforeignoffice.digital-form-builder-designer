@@ -13,6 +13,7 @@ import ConditionsEdit from './conditions-edit'
 import FeeEdit from './fee-edit'
 import NotifyEdit from './notify-edit'
 import DeclarationEdit from './declaration-edit'
+import FormNameEdit from './form-name-edit'
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -322,6 +323,11 @@ class Menu extends React.Component {
           {' '}
 
           <button className='govuk-button govuk-!-font-size-14'
+                  onClick={() => this.setState({ showEditFormName: true })}>Edit form name
+          </button>
+          {' '}
+
+          <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showSummary: true })}>Summary
           </button>
 
@@ -372,6 +378,11 @@ class Menu extends React.Component {
           <Flyout title='Edit Declaration' show={this.state.showEditDeclaration}
             onHide={() => this.setState({ showEditDeclaration: false })} width='xlarge'>
             <DeclarationEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditDeclaration: false })} />
+          </Flyout>
+
+          <Flyout title='Edit form name' show={this.state.showEditFormName}
+                  onHide={() => this.setState({ showEditFormName: false })} width='xlarge'>
+            <FormNameEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditFormName: false })} />
           </Flyout>
 
           <Flyout title='Summary' show={this.state.showSummary} width='large'

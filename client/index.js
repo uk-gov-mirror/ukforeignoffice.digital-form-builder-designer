@@ -13,6 +13,7 @@ import ConditionsEdit from './conditions-edit'
 import FeeEdit from './fee-edit'
 import NotifyEdit from './notify-edit'
 import DeclarationEdit from './declaration-edit'
+import OutputsEdit from './outputs-edit'
 
 function getLayout (pages, el) {
   // Create a new directed graph
@@ -217,13 +218,13 @@ class Visualisation extends React.Component {
           layout={this.state.layout && this.state.layout.nodes[index]} />
         )}
         {this.state.layout &&
-          <Lines layout={this.state.layout} data={data} />}
+        <Lines layout={this.state.layout} data={data} />}
 
         {this.state.layout &&
         <SaveNotification layout={this.state.layout} downloadedAt={downloadedAt} updatedAt={updatedAt} />}
 
         {this.state.layout &&
-          <Minimap layout={this.state.layout} data={data} />}
+        <Minimap layout={this.state.layout} data={data} />}
       </div>
     )
   }
@@ -307,6 +308,11 @@ class Menu extends React.Component {
           {' '}
 
           <button className='govuk-button govuk-!-font-size-14'
+            onClick={() => this.setState({ showEditOutputs: true })}>Edit Outputs
+          </button>
+          {' '}
+
+          <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showEditFee: true })}>Edit Fees
           </button>
           {' '}
@@ -328,7 +334,7 @@ class Menu extends React.Component {
           <div className='govuk-!-margin-top-4'>
             <a className='govuk-link govuk-!-font-size-16'
               onClick={this.onClickDownload} href='#'>
-              Download JSON</a>{' '}
+      Download JSON</a>{' '}
             <a className='govuk-link govuk-link--no-visited-state govuk-!-font-size-16' href='#'
               onClick={this.onClickUpload}>Upload JSON</a>{' '}
             <input type='file' id='upload' hidden onChange={this.onFileUpload} />
@@ -372,6 +378,11 @@ class Menu extends React.Component {
           <Flyout title='Edit Declaration' show={this.state.showEditDeclaration}
             onHide={() => this.setState({ showEditDeclaration: false })} width='xlarge'>
             <DeclarationEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditDeclaration: false })} />
+          </Flyout>
+
+          <Flyout title='Edit Outputs' show={this.state.showEditOutputs}
+            onHide={() => this.setState({ showEditOutputs: false })} width='xlarge'>
+            <OutputsEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditOutputs: false })} />
           </Flyout>
 
           <Flyout title='Summary' show={this.state.showSummary} width='large'
@@ -451,6 +462,7 @@ class App extends React.Component {
       return res
     }).then(() => {
       updatedData.save = this.save
+      console.log("updated", updatedData)
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
     }).catch(err => {
       console.error(err)

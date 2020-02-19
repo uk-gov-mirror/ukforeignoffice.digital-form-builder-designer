@@ -61,7 +61,6 @@ class OutputEdit extends React.Component {
 
     data.save(copy)
       .then(data => {
-        console.log('saved', data)
         this.props.onEdit({ data })
       })
       .catch(err => {
@@ -71,6 +70,27 @@ class OutputEdit extends React.Component {
 
   onChangeOutputType = e => {
     this.setState({ outputType: e.target.value })
+  }
+
+  onClickDelete = e => {
+    e.preventDefault()
+
+    if (!window.confirm('Confirm delete')) {
+      return
+    }
+
+    const { data, output } = this.props
+    let copy = clone(data)
+    const outputIndex = data.outputs.indexOf(output)
+    copy.outputs.splice(outputIndex, 1)
+
+    data.save(copy)
+      .then(data => {
+        this.props.onEdit({ data })
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
 
   render () {
@@ -112,8 +132,14 @@ class OutputEdit extends React.Component {
         </div>
 
         {outputEdit}
-
-        <button className='govuk-button' type='submit'>Save</button>
+        <div className='govuk-form-group'>
+          <button className='govuk-button' type='submit'>Save</button>
+        </div>
+        { output &&
+          <div className='govuk-form-group'>
+            <a onClick={this.onClickDelete} href={'#'}>Delete</a>
+          </div>
+        }
       </form>
     )
   }

@@ -454,7 +454,8 @@ class App extends React.Component {
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
     }).catch(err => {
       console.error(err)
-      window.alert(`Save failed ${err}`)
+      updatedData.save = this.save
+      this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
     })
   }
 

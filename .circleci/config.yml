@@ -61,7 +61,7 @@ jobs:
 
       - run:
           name: Publish docker image
-          command: ./docker-publish.sh eu-west-1 545108028694.dkr.ecr.eu-west-1.amazonaws.com fco digital-forms-designer
+          command: ./docker-publish.sh eu-west-2 523508197323.dkr.ecr.eu-west-2.amazonaws.com fco digital-forms-designer
 
       - persist_to_workspace:
           root: .

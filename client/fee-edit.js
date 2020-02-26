@@ -11,6 +11,7 @@ class FeeEdit extends React.Component {
     const copy = clone(data)
 
     // Items
+    const payApiKey = formData.get('pay-api-key').trim()
     const descriptions = formData.getAll('description').map(t => t.trim())
     const amount = formData.getAll('amount').map(t => t.trim())
     const conditions = formData.getAll('condition').map(t => t.trim())
@@ -20,7 +21,7 @@ class FeeEdit extends React.Component {
       condition: conditions[i]
     }))
 
-    console.log(copy.fees)
+    copy.payApiKey = payApiKey
 
     data.save(copy)
       .then(data => {
@@ -56,13 +57,19 @@ class FeeEdit extends React.Component {
 
   render () {
     const { data } = this.props
-    const { fees, conditions } = data
+    const { fees, conditions, payApiKey } = data
 
     return (
       <div className='govuk-body'>
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
           <a className='govuk-back-link' href='#'
             onClick={e => this.props.onCancel(e)}>Back</a>
+          <div className='govuk-form-group'>
+            <label htmlFor='pay-api-key'>Pay API Key</label>
+            <input className='govuk-input' id='pay-api-key' name='pay-api-key'
+              type='text' required defaultValue={payApiKey}
+            />
+          </div>
 
           <FeeItems items={fees} conditions={conditions} />
 

@@ -318,11 +318,6 @@ class Menu extends React.Component {
           {' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditNotify: true })}>Edit Notify
-          </button>
-          {' '}
-
-          <button className='govuk-button govuk-!-font-size-14'
             onClick={() => this.setState({ showEditDeclaration: true })}>Edit Declaration
           </button>
           {' '}

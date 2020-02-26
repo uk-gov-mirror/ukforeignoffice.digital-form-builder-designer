@@ -17,8 +17,8 @@
   },
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
-    "digital-form-builder-engine": "https://github.com/UKForeignOffice/digital-form-builder-engine#feature/multi-output",
     "@hapi/wreck": "^17.0.0",
+    "digital-form-builder-engine": "https://github.com/UKForeignOffice/digital-form-builder-engine#v1.1.8",
     "flat": "^5.0.0",
     "joi": "14.0.2"
   },

@@ -35,8 +35,6 @@ class OutputEdit extends React.Component {
         break
       case 'email':
         outputConfiguration = {
-          templateId: formData.get('template-id'),
-          apiKey: formData.get('api-key'),
           emailAddress: formData.get('email-address')
         }
         break

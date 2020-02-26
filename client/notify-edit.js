@@ -1,4 +1,3 @@
-import { clone } from './helpers'
 import NotifyItems from './notify-items'
 import React from 'react'
 
@@ -6,7 +5,6 @@ class NotifyEdit extends React.Component {
   constructor (props) {
     super(props)
     let { data } = this.props
-    // this.onSubmit = this.onSubmit.bind(this)
     this.usableKeys = [].concat.apply([], data.pages.map(page => page.components.filter(component => component.name).map(component => `${page.section ? page.section + '.' : ''}${component.name}`)))
   }
 

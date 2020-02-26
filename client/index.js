@@ -457,7 +457,6 @@ class App extends React.Component {
       return res
     }).then(() => {
       updatedData.save = this.save
-      console.log("updated", updatedData)
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
     }).catch(err => {
       console.error(err)

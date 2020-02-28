@@ -16,10 +16,11 @@ class DeclarationEdit extends React.Component {
     const copy = clone(data)
 
     copy.declaration = formData.get('declaration')
+    copy.skipSummary = formData.get('skip-summary') === 'on'
 
     data.save(copy)
       .then(data => {
-        toggleShowState('showEditDeclaration')
+        toggleShowState('showEditSummaryBehaviour')
         console.log(data)
       })
       .catch(err => {
@@ -29,13 +30,26 @@ class DeclarationEdit extends React.Component {
 
   render () {
     const { data } = this.props
-    const { declaration } = data
+    const { declaration, skipSummary } = data
 
     return (
       <div className='govuk-body'>
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
           <a className='govuk-back-link' href='#'
             onClick={e => this.props.onCancel(e)}>Back</a>
+
+          <div className='govuk-checkboxes govuk-form-group'>
+            <legend className='govuk-fieldset__legend govuk-fieldset__legend--s'>
+              <p className='govuk-fieldset__heading'>Skip summary page? </p>
+              <span className='govuk-hint'>The user will not be shown a summary page, and will continue to pay and/or the application complete page.</span>
+            </legend>
+            <div className='govuk-checkboxes__item'>
+              <input className='govuk-checkboxes__input' id='skip-summary' data-cast='boolean'
+                name='skip-summary' type='checkbox' defaultChecked={skipSummary} />
+              <label className='govuk-label govuk-checkboxes__label'
+                htmlFor='skip-summary'>Skip summary</label>
+            </div>
+          </div>
 
           <div className='govuk-form-group'>
             <label className='govuk-label' htmlFor='declaration'>Declaration</label>

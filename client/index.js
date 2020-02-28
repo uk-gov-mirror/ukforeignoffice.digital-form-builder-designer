@@ -318,7 +318,7 @@ class Menu extends React.Component {
           {' '}
 
           <button className='govuk-button govuk-!-font-size-14'
-            onClick={() => this.setState({ showEditDeclaration: true })}>Edit Declaration
+            onClick={() => this.setState({ showEditSummaryBehaviour: true })}>Edit summary behaviour
           </button>
           {' '}
 
@@ -378,6 +378,11 @@ class Menu extends React.Component {
           <Flyout title='Edit Outputs' show={this.state.showEditOutputs}
             onHide={() => this.setState({ showEditOutputs: false })} width='xlarge'>
             <OutputsEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditOutputs: false })} />
+          </Flyout>
+
+          <Flyout title='Edit Summary behaviour' show={this.state.showEditSummaryBehaviour}
+            onHide={() => this.setState({ showEditSummaryBehaviour: false })} width='xlarge'>
+            <DeclarationEdit data={data} toggleShowState={this.toggleShowState} onCreate={() => this.setState({ showEditSummaryBehaviour: false })} />
           </Flyout>
 
           <Flyout title='Summary' show={this.state.showSummary} width='large'

@@ -11,6 +11,15 @@ const publish = async function (id, configuration) {
   })
 }
 
+const getPublished = async function (id) {
+  try {
+    const { payload } = await Wreck.get(`${config.previewUrl}/published/${id}`)  
+    return payload.toString();
+  } catch (error) {
+    return h.response({ ok: false, err: 'read data failed' }).code(500)
+  }
+}
+
 const designerPlugin = {
   plugin: {
     name: pkg.name,
@@ -45,8 +54,16 @@ const designerPlugin = {
         method: 'GET',
         path: `/{id}/api/data`,
         options: {
-          handler: (request, h) => {
-            return h.response(require('./../new-form')).type('application/json')
+          handler: async (request, h) => {
+            const { id }  = request.params
+            return await getPublished(id).then(response => {
+              const { id, values } = JSON.parse(response)
+              if(values){
+                return h.response(JSON.stringify(values)).type('application/json')
+              } else {
+                return h.response(require('./../new-form')).type('application/json')
+              }
+            })
           }
         }
       })

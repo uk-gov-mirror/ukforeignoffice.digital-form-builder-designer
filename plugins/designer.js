@@ -12,8 +12,8 @@ const publish = async function (id, configuration) {
 }
 
 const getPublished = async function (id) {
-    const { payload } = await Wreck.get(`${config.previewUrl}/published/${id}`)  
-    return payload.toString();
+  const { payload } = await Wreck.get(`${config.previewUrl}/published/${id}`)
+  return payload.toString()
 }
 
 const designerPlugin = {
@@ -51,19 +51,16 @@ const designerPlugin = {
         path: `/{id}/api/data`,
         options: {
           handler: async (request, h) => {
-            const { id }  = request.params
+            const { id } = request.params
             try {
-              return await getPublished(id).then(response => {
-                if(response) {
-                  const { id, values } = JSON.parse(response)
-                  if(values){
-                    return h.response(JSON.stringify(values)).type('application/json')
-                  } 
-                }
-                return h.response(require('./../new-form')).type('application/json')
-              })  
-            } catch(error) {
-              throw new Error("Retrieving form configuration failed").code(500)
+              const response = await getPublished(id)
+              const { values } = response ? JSON.parse(response) : {}
+              if (values) {
+                return h.response(JSON.stringify(values)).type('application/json')
+              }
+              return h.response(require('./../new-form')).type('application/json')
+            } catch (error) {
+              return h.response({ ok: false, err: 'Reading file configuration failed' }).code(500)
             }
           }
         }

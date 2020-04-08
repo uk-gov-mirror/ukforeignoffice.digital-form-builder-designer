@@ -12,12 +12,8 @@ const publish = async function (id, configuration) {
 }
 
 const getPublished = async function (id) {
-  try {
     const { payload } = await Wreck.get(`${config.previewUrl}/published/${id}`)  
     return payload.toString();
-  } catch (error) {
-    return h.response({ ok: false, err: 'read data failed' }).code(500)
-  }
 }
 
 const designerPlugin = {
@@ -56,14 +52,19 @@ const designerPlugin = {
         options: {
           handler: async (request, h) => {
             const { id }  = request.params
-            return await getPublished(id).then(response => {
-              const { id, values } = JSON.parse(response)
-              if(values){
-                return h.response(JSON.stringify(values)).type('application/json')
-              } else {
+            try {
+              return await getPublished(id).then(response => {
+                if(response) {
+                  const { id, values } = JSON.parse(response)
+                  if(values){
+                    return h.response(JSON.stringify(values)).type('application/json')
+                  } 
+                }
                 return h.response(require('./../new-form')).type('application/json')
-              }
-            })
+              })  
+            } catch(error) {
+              throw new Error("Retrieving form configuration failed").code(500)
+            }
           }
         }
       })

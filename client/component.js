@@ -22,6 +22,7 @@ export const componentTypes = {
   'UkAddressField': UkAddressField,
   'FileUploadField': FileUploadField,
   'Para': Para,
+  'Details': Details,
   'Html': Html,
   'InsetText': InsetText,
   'FlashCard': FlashCard,

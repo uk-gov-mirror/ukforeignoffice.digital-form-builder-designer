@@ -139,12 +139,12 @@ class ListItems extends React.Component {
               <td className='govuk-table__cell'>
                 <select className='govuk-select' id='link-source' name='condition' defaultValue={item.condition}>
                   <option />
-                  {conditions.map((condition, i) => (<option key={condition.name + i} value={condition.name}>{condition.name}</option>))}
+                  {(conditions || []).map((condition, i) => (<option key={condition.name + i} value={condition.name}>{condition.name}</option>))}
                 </select>
               </td>
               <td className='govuk-table__cell'>
                 <div className='component-item'>
-                  <ComponentConditionCreate />
+                  <ComponentConditionCreate conditional={item.conditional} />
                 </div>
               </td>
               <td className='govuk-table__cell' width='20px'>

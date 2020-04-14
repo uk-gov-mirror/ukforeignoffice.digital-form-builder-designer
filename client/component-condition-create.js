@@ -1,5 +1,4 @@
 import React from 'react'
-import { clone, getFormData } from './helpers'
 import ComponentTypeEdit from './component-type-edit'
 import conditionalComponentTypes from 'digital-form-builder-engine/conditional-component-types'
 //
@@ -8,37 +7,26 @@ import conditionalComponentTypes from 'digital-form-builder-engine/conditional-c
 // import componentTypes from 'digital-form-builder-engine/component-types'
 
 class ComponentConditionCreate extends React.Component {
-  state = {}
+  constructor (props) {
+    super(props)
 
-  onSubmit = e => {
-    e.preventDefault()
-    const form = e.target
-    const { page, data } = this.props
-    const formData = getFormData(form)
-    const copy = clone(data)
-    const copyPage = copy.pages.find(p => p.path === page.path)
+    const { conditional } = this.props
+    const { components } = conditional || {}
 
-    // Apply
-    copyPage.components.push(formData)
-
-    data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onCreate({ data })
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    this.state = {
+      component: components && components.length ? components[0] : null
+    }
   }
 
   render () {
-    const { page, data } = this.props
+    const { component } = this.state
+    const selectedType = component ? component.type : ''
 
     return (
       <div>
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='type'>Type</label>
-          <select className='govuk-select' id='type' name='cond-type'
+          <select className='govuk-select' id='type' name='cond-type' defaultValue={selectedType}
             onChange={e => this.setState({ component: { type: e.target.value } })}>
             <option />
             {conditionalComponentTypes.map(type => {
@@ -46,15 +34,12 @@ class ComponentConditionCreate extends React.Component {
             })}
           </select>
         </div>
-
-        {this.state.component && this.state.component.type && (
+        { selectedType &&
           <div>
-            <ComponentTypeEdit
-              page={page}
-              component={this.state.component}
-              data={data} />
+            <ComponentTypeEdit data={{}}
+              component={this.state.component} />
           </div>
-        )}
+        }
       </div>
     )
   }

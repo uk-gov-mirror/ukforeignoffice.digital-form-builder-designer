@@ -1,6 +1,5 @@
 import React from 'react'
 import ListEdit from './list-edit'
-import ListCreate from './list-create'
 
 class ListsEdit extends React.Component {
   state = {}
@@ -31,8 +30,8 @@ class ListsEdit extends React.Component {
         {!list ? (
           <div>
             {this.state.showAddList ? (
-              <ListCreate data={data}
-                onCreate={e => this.setState({ showAddList: false })}
+              <ListEdit list={{}} data={data}
+                onEdit={e => this.setState({ showAddList: false })}
                 onCancel={e => this.setState({ showAddList: false })} />
             ) : (
               <ul className='govuk-list'>

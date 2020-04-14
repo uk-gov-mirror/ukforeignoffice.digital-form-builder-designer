@@ -24,7 +24,6 @@ export const componentTypes = {
   'Para': Para,
   'Html': Html,
   'InsetText': InsetText,
-  'Details': Details,
   'FlashCard': FlashCard,
   'List': List,
   'WarningText': WarningText

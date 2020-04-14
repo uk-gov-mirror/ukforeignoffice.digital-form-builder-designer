@@ -29,13 +29,10 @@ class LinkCreate extends React.Component {
 
     page.next.push(next)
 
+    console.log(data)
     data.save(copy)
-      .then(data => {
-        console.log(data)
+      .then(() => {
         this.props.onCreate({ next })
-      })
-      .catch(err => {
-        console.error(err)
       })
   }
 

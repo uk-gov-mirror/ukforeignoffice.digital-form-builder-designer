@@ -22,7 +22,12 @@ class ListEdit extends React.Component {
 
     const copy = clone(data)
     const nameChanged = newName !== list.name
-    const copyList = copy.lists[data.lists.indexOf(list)]
+    let copyList = copy.lists[data.lists.indexOf(list)]
+
+    if (!copyList) {
+      copyList = {}
+      copy.lists.push(copyList)
+    }
 
     if (nameChanged) {
       copyList.name = newName
@@ -48,22 +53,42 @@ class ListEdit extends React.Component {
     const descriptions = formData.getAll('description').map(t => t.trim())
     const conditions = formData.getAll('condition').map(t => t.trim())
 
-    const conditionals = [
-      {
-        components: [
-          {
-            type: formData.get('cond-type') || '',
-            name: formData.get('name') || '',
-            title: formData.get('title') || '',
-            hint: formData.get('hint') || '',
-            options: {
-              classes: 'govuk-!-width-one-third'
-            },
-            schema: {}
-          }
-        ]
+    const conditionalTypes = formData.getAll('cond-type').map(t => t.trim())
+    const conditionalNames = formData.getAll('name').map(t => t.trim())
+    const conditionalTitles = formData.getAll('title').map(t => t.trim())
+    const conditionalHints = formData.getAll('hint').map(t => t.trim())
+
+    // remove list name and title
+    conditionalNames.shift()
+    conditionalTitles.shift()
+
+    console.log('conditionalTypes', conditionalTypes)
+    console.log('conditionalNames', conditionalNames)
+    console.log('conditionalTitles', conditionalTitles)
+    console.log('conditionalHints', conditionalHints)
+
+    const conditionals = conditionalTypes.map(type => {
+      if (type) {
+        const name = conditionalNames.shift()
+        const title = conditionalTitles.shift()
+        const hint = conditionalHints.shift()
+        return {
+          components: [
+            {
+              type,
+              name,
+              title,
+              hint,
+              options: {
+                classes: 'govuk-!-width-one-third'
+              },
+              schema: {}
+            }
+          ]
+        }
       }
-    ]
+      return null
+    })
 
     copyList.items = texts.map((t, i) => ({
       text: t,
@@ -73,13 +98,11 @@ class ListEdit extends React.Component {
       conditional: conditionals[i]
     }))
 
+    console.log(copy)
     data.save(copy)
-      .then(data => {
-        console.log(data)
-        this.props.onEdit({ data })
-      })
-      .catch(err => {
-        console.error(err)
+      .then(updatedData => {
+        console.log('updatedData', updatedData)
+        this.props.onEdit({ data: copy })
       })
   }
 
@@ -143,7 +166,7 @@ class ListEdit extends React.Component {
 
         <div className='govuk-form-group'>
           <label className='govuk-label govuk-label--s' htmlFor='list-title'>Title</label>
-          <input className='govuk-input govuk-!-width-two-thirds' id='list-title' name='title'
+          <input className='govuk-input govuk-input--width-20' id='list-title' name='title'
             type='text' defaultValue={list.title} required />
         </div>
 

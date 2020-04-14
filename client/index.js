@@ -278,11 +278,8 @@ class Menu extends React.Component {
     const { data } = this.props
     return (
       <div className='menu'>
-        <button className={`govuk-button govuk-!-font-size-14${this.state.showMenu ? ' govuk-!-margin-right-2' : ''}`}
-          onClick={() => this.setState({ showMenu: !this.state.showMenu })}>☰
-        </button>
-        {this.state.showMenu && <span className='menu-inner'>
-          <button className='govuk-button govuk-!-font-size-14'
+        <span className='menu-inner'>
+          <button className='govuk-button govuk-!-font-size-14 govuk-!-margin-bottom-1'
             onClick={() => this.setState({ showAddPage: true })}>Add Page
           </button>
           {' '}
@@ -426,7 +423,6 @@ class Menu extends React.Component {
             </div>
           </Flyout>
         </span>
-        }
       </div>
     )
   }
@@ -459,14 +455,12 @@ class App extends React.Component {
       if (!res.ok) {
         throw Error(res.statusText)
       }
-      return res
-    }).then(() => {
+    }).catch(() => {
+      // Not connected to preview environment
+    }).finally(() => {
       updatedData.save = this.save
       this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
-    }).catch(err => {
-      console.error(err)
-      updatedData.save = this.save
-      this.setState({ data: updatedData, updatedAt: (new Date().toLocaleTimeString()) })
+      return updatedData
     })
   }
 

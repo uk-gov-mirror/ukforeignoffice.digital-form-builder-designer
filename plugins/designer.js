@@ -58,10 +58,10 @@ const designerPlugin = {
               if (values) {
                 return h.response(JSON.stringify(values)).type('application/json')
               }
-              return h.response(require('./../new-form')).type('application/json')
             } catch (error) {
-              return h.response({ ok: false, err: 'Reading file configuration failed' }).code(500)
+              // ignore
             }
+            return h.response(require('../new-form')).type('application/json')
           }
         }
       })

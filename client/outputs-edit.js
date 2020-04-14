@@ -35,7 +35,7 @@ class OutputsEdit extends React.Component {
                 onCancel={e => this.setState({ showAddOutput: false })} />
             ) : (
               <ul className='govuk-list'>
-                {outputs || [].map((output, index) => (
+                {(outputs || []).map(output => (
                   <li key={output.name}>
                     <a href='#' onClick={e => this.onClickOutput(e, output)}>
                       {output.name}

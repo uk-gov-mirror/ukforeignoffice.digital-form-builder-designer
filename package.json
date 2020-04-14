@@ -19,7 +19,7 @@
   "dependencies": {
     "@hapi/joi": "17.1.1",
     "@hapi/wreck": "17.0.0",
-    "digital-form-builder-engine": "UKForeignOffice/digital-form-builder-engine#v1.6.1",
+    "digital-form-builder-engine": "UKForeignOffice/digital-form-builder-engine#v1.6.2",
     "flat": "5.0.0"
   },
   "devDependencies": {

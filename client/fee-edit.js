@@ -62,8 +62,6 @@ class FeeEdit extends React.Component {
     return (
       <div className='govuk-body'>
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-          <a className='govuk-back-link' href='#'
-            onClick={e => this.props.onCancel(e)}>Back</a>
           <div className='govuk-form-group'>
             <label htmlFor='pay-api-key'>Pay API Key</label>
             <input className='govuk-input' id='pay-api-key' name='pay-api-key'

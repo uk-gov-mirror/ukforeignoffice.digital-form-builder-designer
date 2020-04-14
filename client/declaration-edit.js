@@ -35,9 +35,6 @@ class DeclarationEdit extends React.Component {
     return (
       <div className='govuk-body'>
         <form onSubmit={e => this.onSubmit(e)} autoComplete='off'>
-          <a className='govuk-back-link' href='#'
-            onClick={e => this.props.onCancel(e)}>Back</a>
-
           <div className='govuk-checkboxes govuk-form-group'>
             <legend className='govuk-fieldset__legend govuk-fieldset__legend--s'>
               <p className='govuk-fieldset__heading'>Skip summary page? </p>
